@@ -29,6 +29,7 @@ const segs = dims.map((d, i) => {
     ...d,
     body: sector(R0, R1 - BAND, mid - HALF, mid + HALF),
     band: sector(R1 - BAND, R1, mid - HALF, mid + HALF),
+    hit: sector(R0, R1, mid - HALF, mid + HALF),
     cx, cy,
   };
 });
@@ -44,6 +45,7 @@ const tiers = data.tiers;
               <path class="body" d={s.body} />
               <path class="band" d={s.band} />
             </g>
+            <path class="hit" d={s.hit} />
             <g transform={`translate(${(s.cx - 15.6).toFixed(1)} ${(s.cy - 36).toFixed(1)}) scale(1.3)`}>
               <g class="ico">{icons[s.slug].split(' M').map((seg, n) => <path d={(n ? 'M' : '') + seg} />)}</g>
             </g>

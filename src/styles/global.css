@@ -188,6 +188,9 @@ h4 { font-size: 1.25rem; line-height: 1.2; font-weight: 450; }
 .seg .body { fill: color-mix(in oklab, var(--dim) 20%, var(--raised)); stroke: var(--paper); stroke-width: 3; transition: fill 0.25s; }
 .seg .band { fill: var(--dim); stroke: var(--paper); stroke-width: 3; }
 .seg .shape { transition: transform 0.25s cubic-bezier(0.3, 0.7, 0.3, 1); transform-origin: 250px 250px; }
+/* The hover area is a fixed, invisible copy of the segment, so the segment growing when selected never moves the thing under the pointer. */
+.seg .shape { pointer-events: none; }
+.seg .hit { fill: transparent; stroke: none; pointer-events: all; }
 .seg:hover .body { fill: color-mix(in oklab, var(--dim) 38%, var(--raised)); }
 .seg[aria-selected='true'] .body { fill: var(--dim-fill); }
 .seg[aria-selected='true'] .shape { transform: scale(1.04); }
@@ -212,8 +215,9 @@ h4 { font-size: 1.25rem; line-height: 1.2; font-weight: 450; }
 .steps .n { display: grid; place-items: center; width: 2.1rem; height: 2.1rem; border-radius: 999px; background: var(--dim-fill, var(--leaf)); color: var(--on-dim, #fff); font: 700 1rem var(--sans); }
 .steps .t { font-weight: 700; display: block; font-size: 0.98rem; }
 .steps .d { display: block; color: var(--ink); }
-.dim-panel .fade { animation: swap 0.28s ease-out; }
-@keyframes swap { from { opacity: 0.2; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+/* A small slide, never a fade: moving the pointer across the wheel switches the panel often, and a fade made it look greyed out. */
+.dim-panel .fade { animation: swap 0.2s ease-out; }
+@keyframes swap { from { transform: translateY(5px); } to { transform: none; } }
 .reduce .dim-panel .fade { animation: none; }
 .wheel-list { display: none; }
 .no-js .wheel-list { display: block; }

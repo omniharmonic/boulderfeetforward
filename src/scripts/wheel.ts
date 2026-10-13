@@ -6,6 +6,11 @@ document.querySelectorAll<HTMLElement>('[data-wheel]').forEach((root) => {
   if (!segs.length || !panel) return;
 
   const select = (slug: string, moveFocus = false) => {
+    // Already showing this one: do nothing, so the panel does not replay its fade-in.
+    if (panel.dataset.dim === slug) {
+      if (moveFocus) (segs.find((s) => s.dataset.dim === slug) as unknown as HTMLElement | undefined)?.focus();
+      return;
+    }
     segs.forEach((s) => {
       const on = s.dataset.dim === slug;
       s.setAttribute('aria-selected', String(on));
