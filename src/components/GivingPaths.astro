@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import site from '../data/site.json';
+const programs = (await getCollection('programs')).sort((a, b) => a.data.order - b.data.order);
+---
+<div class="paths">
+  <section class="path-row" id="needed-most" data-step>
+    <div>
+      <h2>Give where it&rsquo;s needed most</h2>
+      <p class="muted">Our work is much more than a handout. A direct gift keeps case management going: housing assessments, resource navigation, referrals, warm handoffs, benefits enrollment, peer support and advocacy.</p>
+    </div>
+    <div>
+      <p class="measure">Give once, or give monthly. Monthly gifts are how we keep showing up.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href={site.giving.general} rel="noopener">Give where it&rsquo;s needed</a>
+      </div>
+      <p class="small muted" style="margin-top:.8rem">You will finish on our giving page at Zeffy. You can choose one time or monthly there.</p>
+    </div>
+  </section>
+
+  <section class="path-row" id="something-specific" data-step>
+    <div>
+      <h2>Fund something specific</h2>
+      <p class="muted">Choose what your gift does. Amounts are estimates from our recent costs.</p>
+    </div>
+    <ul class="ledger">
+      {programs.map((p) => (
+        <li>
+          <div>
+            <h3>{p.data.title}</h3>
+            <p>{p.data.summary}</p>
+            <p class="impact">{p.data.impact}{p.data.impactApprox && <small> (approximate)</small>}</p>
+          </div>
+          <a class="btn btn-ghost btn-sm" href={p.data.zeffyUrl} rel="noopener" aria-label={`Fund this: ${p.data.title}`}>Fund this</a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="path-row" id="give-things" data-step>
+    <div>
+      <h2>Give things</h2>
+      <p class="muted">Your gently used items go to neighbors according to need.</p>
+    </div>
+    <div>
+      <p class="measure">Our outreach events use single-use food service items, and we aim to use mostly compostable supplies. We also hand out seasonal survival gear. Our Amazon wish list lists what we use and distribute, and anything ordered ships directly to us.</p>
+      <div class="btn-row"><a class="btn btn-ghost" href={site.giving.wishlist} rel="noopener">Open the wish list</a></div>
+      <h3 style="margin-top:2rem;font-size:1.25rem;font-weight:450">Donating items yourself</h3>
+      <p class="muted" style="margin-bottom:.4rem">The things our neighbors can use most:</p>
+      <ul class="wish">
+        <li>Bikes, bike locks and bicycle repair supplies</li>
+        <li>Sturdy backpacks and other luggage</li>
+        <li>Mobility aids such as canes, walkers and crutches</li>
+        <li>Camping gear</li>
+        <li>Water bottles</li>
+      </ul>
+      <p class="measure" style="margin-top:1rem"><a href={`mailto:${site.contact.email}`}>Email us</a> to arrange a drop-off. For clothing and shoes, please contact <a href="https://www.deaconscloset.org/" rel="noopener">Deacon&rsquo;s Closet</a>. For furniture, contact <a href="https://www.homeahead.org/" rel="noopener">Home Ahead</a>. We are glad to send you to partners who can use those.</p>
+    </div>
+  </section>
+</div>

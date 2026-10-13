@@ -1,0 +1,98 @@
+{
+  "framework": "SAMHSA's Eight Dimensions of Wellness (adapted from Swarbrick, 2006)",
+  "tiers": [
+    { "id": 1, "name": "Basic needs", "line": "Solve the immediate problem." },
+    { "id": 2, "name": "Stabilizing resources", "line": "Plan an accessible solution someone can use for themselves." },
+    { "id": 3, "name": "Sustainable support", "line": "Work toward a sustainable solution." }
+  ],
+  "dimensions": [
+    {
+      "slug": "emotional",
+      "name": "Emotional",
+      "order": 0,
+      "summary": "Wellbeing starts with someone who shows up. Our peers are there every day, as equals.",
+      "tiers": [
+        "Daily connection and a co-equal relationship with peers",
+        "Care referrals, and our continued daily presence",
+        "Continued support to each individual"
+      ]
+    },
+    {
+      "slug": "occupational",
+      "name": "Occupational",
+      "order": 1,
+      "summary": "Work and purpose depend on being able to get there, and to show up as yourself.",
+      "tiers": [
+        "Reliable transportation (bus passes, bike locks) and professional clothing",
+        "Referrals for job placement programs, and résumé assistance",
+        "Ongoing individualized support"
+      ]
+    },
+    {
+      "slug": "intellectual",
+      "name": "Intellectual",
+      "order": 2,
+      "summary": "Curiosity doesn't wait for housing. Learning is part of how people rebuild.",
+      "tiers": [
+        "Art, poetry and movie workshops, and supplies",
+        "Exploration: referrals and information for classes, groups and events",
+        "Program enrollments for education and more, with ongoing goal-setting and support"
+      ]
+    },
+    {
+      "slug": "environmental",
+      "name": "Environmental",
+      "order": 3,
+      "summary": "The spaces people live in, and move through, shape everything else.",
+      "tiers": [
+        "Park cleanup, sleeping bags or blankets, clothing",
+        "Laundry vouchers, plus referrals and information for shelters and free, friendly public spaces with bathrooms, showers and storage",
+        "Housing and furniture"
+      ]
+    },
+    {
+      "slug": "financial",
+      "name": "Financial",
+      "order": 4,
+      "summary": "Money is a barrier at every step. We remove it first, then help people build a way forward.",
+      "tiers": [
+        "Essentials provided at no cost",
+        "Enrollment and advocacy for Aid to the Needy Disabled (AND), SSI and SSDI",
+        "Long-term goal setting and individualized planning"
+      ]
+    },
+    {
+      "slug": "social",
+      "name": "Social",
+      "order": 5,
+      "summary": "Belonging is basic. It starts with conversation and grows into community.",
+      "tiers": [
+        "Conversation and companionship with peers",
+        "Continued daily interaction, deepening connection, and prosocial events",
+        "A broadened sense of community"
+      ]
+    },
+    {
+      "slug": "physical",
+      "name": "Physical",
+      "order": 6,
+      "summary": "Food, water, first aid and harm reduction come first, wherever someone is.",
+      "tiers": [
+        "Nutritious food and water, hygiene supplies, basic wound care, safe-use and harm reduction supplies, and safer-sex supplies",
+        "Food bank information, care referrals, and SNAP and Medicaid enrollment",
+        "Housing and advocacy"
+      ]
+    },
+    {
+      "slug": "spiritual",
+      "name": "Spiritual",
+      "order": 7,
+      "summary": "Meaning looks different for everyone. We make room for whatever it is for you.",
+      "tiers": [
+        "Outreach by the faith groups that join our events",
+        "Conversation, and referrals to programs and groups that fit each person",
+        "Ongoing follow-up"
+      ]
+    }
+  ]
+}

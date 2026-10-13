@@ -1,0 +1,45 @@
+{
+  "title": "How your donation helps us keep showing up",
+  "monthlyTotal": 22677,
+  "annualTotal": 272120,
+  "currentStaffingAnnual": 150000,
+  "fullCapacityNote": "$272,120 a year funds a four-person team, including two additional full-time Peer Specialist / Case Manager positions at $60,000 each. About $150,000 a year sustains BFF at its current staffing level.",
+  "footnotes": [
+    "Volunteer labor is based on about 424 recorded volunteer hours at Tuesday outreach events in 2024, valued at Colorado's current estimated value of volunteer time. Friday hours are not included.",
+    "$500 buys 37 ten-ride RTD pass books, at least 370 rides. Passes are valid for three hours and may include transfers."
+  ],
+  "tiers": [
+    {
+      "id": "tier-1",
+      "name": "Basic needs",
+      "monthly": 4077,
+      "annual": 48920,
+      "items": [
+        { "name": "Meals", "what": "Purchased food fills the gaps in donated food, so we can serve about 458 meals each month. Donated food added another $24,114 in value in 2024.", "monthly": 867, "annual": 10400 },
+        { "name": "Personal care supplies", "what": "About 11,360 hygiene, first-aid and personal care items each year. In-kind gifts keep our average cost to about $0.27 per item.", "monthly": 260, "annual": 3120 },
+        { "name": "Outreach infrastructure", "what": "The staff time and licensed kitchen it takes to source, prepare, haul, set up, serve and clean up two outreach events every week. Volunteers add at least $16,959 in labor.", "monthly": 2950, "annual": 35400 }
+      ]
+    },
+    {
+      "id": "tier-2",
+      "name": "Stabilization",
+      "monthly": 12267,
+      "annual": 147200,
+      "items": [
+        { "name": "RTD bus passes", "what": "At least 370 rides a month to appointments, food banks, shelter and services. We buy passes at a 50% nonprofit discount.", "monthly": 500, "annual": 6000 },
+        { "name": "Laundry vouchers", "what": "Twenty vouchers a month, so people can reuse clothing, blankets and sleeping bags.", "monthly": 100, "annual": 1200 },
+        { "name": "Daily peer outreach and resource navigation", "what": "Current resource information and partner relationships, personal navigation, Coordinated Entry and housing assessments, and warm handoffs to providers.", "monthly": 11667, "annual": 140000 }
+      ]
+    },
+    {
+      "id": "tier-3",
+      "name": "Sustained support",
+      "monthly": 6333,
+      "annual": 76000,
+      "items": [
+        { "name": "Peer case management", "what": "Individualized support, housing and other advocacy, coordination, problem-solving and follow-through toward goals people set for themselves.", "monthly": 5833, "annual": 70000 },
+        { "name": "Mobile service and direct costs", "what": "Keeps the team mobile and covers the small costs that remove barriers: IDs, documents, application fees.", "monthly": 500, "annual": 6000 }
+      ]
+    }
+  ]
+}

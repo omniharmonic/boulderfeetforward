@@ -1,0 +1,28 @@
+{
+  "providers": [
+    { "name": "Focus ReEntry", "url": "https://www.focusreentry.org/" },
+    { "name": "Boulder Community Court", "url": "https://bouldercolorado.gov/services/community-court" },
+    { "name": "Recovery Café Longmont", "url": "https://recoverycafelongmont.org/" },
+    { "name": "TGTHR Youth Shelters", "url": "https://tgthr.org" },
+    { "name": "Mental Health Partners", "url": "https://mhpcolorado.org/" },
+    { "name": "Boulder County Public Health, the Works", "url": "https://bouldercounty.gov/families/disease/the-works-program/" },
+    { "name": "SPAN", "url": "https://www.safehousealliance.org/" },
+    { "name": "Urban Peak", "url": "https://share.google/NZTaYXBycu0YfDgc7" }
+  ],
+  "community": [
+    { "name": "Wash and Wave (laundry)", "url": "" },
+    { "name": "RTD nonprofit pass program", "url": "" },
+    { "name": "Boulder Public Library", "url": "" },
+    { "name": "ACLU of Colorado", "url": "" }
+  ],
+  "referrals": [
+    { "for": "Clothing and shoes", "name": "Deacon's Closet", "url": "https://www.deaconscloset.org/" },
+    { "for": "Furniture", "name": "Home Ahead", "url": "https://www.homeahead.org/" }
+  ],
+  "reading": [
+    { "name": "SAMHSA: about recovery", "url": "https://www.samhsa.gov/substance-use/recovery/about" },
+    { "name": "SAMHSA: Peers Supporting Recovery from Substance Use Disorders (PDF)", "url": "https://www.samhsa.gov/sites/default/files/programs_campaigns/brss_tacs/peers-supporting-recovery-substance-use-disorders-2017.pdf" },
+    { "name": "Recovery Answers: what is the evidence for peer recovery support services?", "url": "https://www.recoveryanswers.org/research-post/what-is-the-evidence-for-peer-recovery-support-services/" },
+    { "name": "Hazelden Betty Ford: peer recovery support", "url": "https://www.hazeldenbettyford.org/research-studies/addiction-research/peer-recovery-support" }
+  ]
+}

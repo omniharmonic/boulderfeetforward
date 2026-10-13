@@ -1,0 +1,35 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Stage from '../components/Stage.astro';
+import PageHead from '../components/PageHead.astro';
+import partners from '../data/partners.json';
+const entry = (await getEntry('pages', 'mission'))!;
+const { Content } = await render(entry);
+const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
+---
+<Base title="About us" description={entry.data.description}>
+  <Stage>
+    <PageHead title="Our mission." />
+    <section class="section tight" data-step>
+      <div class="wrap"><div class="prose mission"><Content /></div></div>
+    </section>
+    <section class="section tight" data-step aria-labelledby="team">
+      <div class="wrap">
+        <h2 id="team">The team.</h2>
+        <div class="people">
+          {team.map((p) => <div class="person"><h3>{p.data.name}</h3><p>{p.data.role}</p></div>)}
+        </div>
+      </div>
+    </section>
+    <section class="section tight" data-step aria-labelledby="with">
+      <div class="wrap">
+        <h2 id="with">We work with.</h2>
+        <ul class="partners">
+          {partners.providers.map((p) => <li><a href={p.url} rel="noopener">{p.name}</a></li>)}
+          {partners.community.map((p) => <li>{p.name}</li>)}
+        </ul>
+      </div>
+    </section>
+  </Stage>
+</Base>

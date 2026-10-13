@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+import { u } from '../lib/url';
+---
+<Base title="Page not found">
+  <section class="section lost">
+    <div class="wrap">
+      <svg viewBox="0 0 420 140" aria-hidden="true">
+        <path d="M10 112 C 80 112 90 40 170 60 S 250 100 300 56" fill="none" stroke="var(--line)" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 7" />
+        <g style="color:var(--leaf)">
+          <g transform="translate(38 108) rotate(76)"><use href="#foot-l" x="-5.5" y="-12.5" width="11" height="25" /></g>
+          <g transform="translate(78 100) rotate(60)"><use href="#foot-r" x="-6" y="-12.5" width="12.5" height="25" /></g>
+          <g transform="translate(120 70) rotate(20)"><use href="#foot-l" x="-5.5" y="-12.5" width="11" height="25" /></g>
+          <g transform="translate(166 60) rotate(80)"><use href="#foot-r" x="-6" y="-12.5" width="12.5" height="25" /></g>
+          <g transform="translate(212 78) rotate(110)"><use href="#foot-l" x="-5.5" y="-12.5" width="11" height="25" /></g>
+          <g transform="translate(262 84) rotate(60)" style="color:var(--gold)"><use href="#foot-r" x="-6" y="-12.5" width="12.5" height="25" /></g>
+        </g>
+        <circle cx="304" cy="52" r="4" fill="none" stroke="var(--ink-2)" stroke-width="2" />
+      </svg>
+      <h1 style="font-size:clamp(2.4rem,1.2rem+4vw,4.2rem)">This path doesn&rsquo;t go anywhere.</h1>
+      <p class="lead">Here is where to find us.</p>
+      <div class="btn-row" style="margin-top:1.6rem">
+        <a class="btn btn-primary" href={u('/')}>Go to the home page</a>
+        <a class="btn btn-ghost" href={u('contact/#find-us')}>Find us in the park</a>
+      </div>
+      <p class="small muted" style="margin-top:1.6rem">Tuesdays 2:30 PM and Fridays 11:00 AM, {site.findUs.place}.</p>
+    </div>
+  </section>
+</Base>

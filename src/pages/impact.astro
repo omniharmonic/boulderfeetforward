@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import Stage from '../components/Stage.astro';
+import PageHead from '../components/PageHead.astro';
+import Facts from '../components/Facts.astro';
+import Carousel from '../components/Carousel.astro';
+import Budget from '../components/Budget.astro';
+import { u } from '../lib/url';
+---
+<Base title="Impact" description="What showing up every day adds up to: people reached, meals served, and paths home.">
+  <Stage>
+    <PageHead title="What showing up adds up to." lead="We count what we can and say plainly what we cannot claim." />
+
+    <section class="section tight" data-step aria-labelledby="numbers">
+      <div class="wrap">
+        <h2 id="numbers" class="sr">The numbers</h2>
+        <Facts full />
+      </div>
+    </section>
+
+    <section class="section" data-step aria-labelledby="voices">
+      <div class="wrap">
+        <h2 id="voices">In their words.</h2>
+        <Carousel label="What our neighbors say" />
+      </div>
+    </section>
+
+    <section class="section" data-step aria-labelledby="gift" id="where-it-goes">
+      <div class="wrap">
+        <h2 id="gift">How your donation helps us keep showing up.</h2>
+        <Budget />
+        <div class="btn-row" style="margin-top:2.4rem">
+          <a class="btn btn-primary" href={u('give/')}>Give where it&rsquo;s needed</a>
+        </div>
+      </div>
+    </section>
+  </Stage>
+</Base>

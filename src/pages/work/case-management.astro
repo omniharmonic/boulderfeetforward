@@ -1,0 +1,27 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Stage from '../../components/Stage.astro';
+import PageHead from '../../components/PageHead.astro';
+import DraftNote from '../../components/DraftNote.astro';
+import site from '../../data/site.json';
+import { u } from '../../lib/url';
+const entry = (await getEntry('pages', 'case-management'))!;
+const { Content } = await render(entry);
+---
+<Base title={entry.data.title} description={entry.data.description}>
+  <Stage>
+    <PageHead title="The long game, at your pace." lead="Sustained support toward goals people set for themselves." />
+    <section class="section tight" data-step>
+      <div class="wrap">
+        <DraftNote draft={entry.data.draft} />
+        <div class="prose"><Content /></div>
+        <div class="btn-row" style="margin-top:2rem">
+          <a class="btn btn-primary" href={`mailto:${site.contact.email}`}>Email us</a>
+          <a class="btn btn-ghost" href={`tel:${site.contact.phoneHref}`}>Call {site.contact.phone}</a>
+          <a class="btn btn-ghost" href={u('work/weekly-outreach/')}>Find us in the park</a>
+        </div>
+      </div>
+    </section>
+  </Stage>
+</Base>

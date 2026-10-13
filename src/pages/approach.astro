@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+import Stage from '../components/Stage.astro';
+import PageHead from '../components/PageHead.astro';
+import Wheel from '../components/Wheel.astro';
+import dims from '../data/dimensions.json';
+import { u } from '../lib/url';
+const modes = [
+  { t: 'Twice a week, zero-barrier outreach events', d: 'Nutritious meals, hygiene supplies, clothing and weather gear, first aid, harm reduction supplies, pet care supplies and more. We provide the infrastructure, food and hygiene supplies. Partners, volunteers and donors expand what is on the table, and providers get a reliable place to meet people who may never walk through their doors.' },
+  { t: 'We solve the problem in front of us', d: 'A bus pass, a bike lock, glasses, laundry, a shower, a haircut, a bike or car repair, a safe place to park, a phone call. If the resource exists, we help people reach it, and we spend our own dollars only where we find gaps. It is whatever small thing is standing between someone and their next step.' },
+  { t: 'We help people navigate services and systems', d: 'Coordinated Entry from wherever you are. Housing assessments on site. IDs and documents, social benefits, health and behavioral health care, employment, education and volunteer opportunities, legal resources, treatment, sober living and many pathways to recovery. Trained peers help with applications, phone calls, paperwork, rides and the next step.' },
+  { t: 'We make warm handoffs, not just referrals', d: 'We introduce people to providers, help them through intake, advocate when needed, get them to appointments, follow up afterward and coordinate with existing care teams. If something does not work, we troubleshoot, try something else and learn from it.' },
+  { t: 'We create connection, community and belonging', d: 'Workshops and useful information, art and poetry, movies and games, trauma-informed movement and more. Belonging is part of stability.' },
+];
+---
+<Base title="Our approach" description="Person first, wellness first. How Boulder Feet Forward meets people where they are.">
+  <Stage>
+    <PageHead title="A different way to reach people." lead="No single solution fits every individual. We help each person find the one that works for them." />
+
+    <section class="section tight" data-step aria-labelledby="principles">
+      <div class="wrap">
+        <h2 id="principles" class="sr">Our principles</h2>
+        <div class="two-col">
+          <div>
+            <h3>Person first</h3>
+            <p>Our care is collaborative, trust-based, trauma-informed and built on choice. The individual determines the destination.</p>
+          </div>
+          <div>
+            <h3>Wellness first</h3>
+            <p>We don&rsquo;t decide that everyone needs treatment first, housing first, employment first or sobriety first. We ask: what does success look like to you, and what would it take to make that happen?</p>
+          </div>
+          <div>
+            <h3>The engagement bridge</h3>
+            <p>We don&rsquo;t duplicate the larger system of care. We extend its reach. We work alongside existing providers and care teams so people can get services they might otherwise never reach.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-step aria-labelledby="eight">
+      <div class="wrap">
+        <h2 id="eight">Eight dimensions of wellness.</h2>
+        <p class="measure" style="margin-bottom:2.4rem">Our framework is SAMHSA&rsquo;s Eight Dimensions of Wellness. People need support in every one of them, not just one. Choose a dimension to see how our work touches it, from the first conversation to the long haul.</p>
+        <Wheel id="approach-wheel" />
+      </div>
+    </section>
+
+    <section class="section" data-step aria-labelledby="steps">
+      <div class="wrap">
+        <h2 id="steps">Small steps build stability.</h2>
+        <p class="measure">Every dimension has three levels of support. We start with what is in front of us, and we build from there.</p>
+        <div class="stairs">
+          {dims.tiers.map((t) => (
+            <div class="stair">
+              <b>Step {t.id}</b>
+              <h3>{t.name}</h3>
+              <p>{t.line}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-step aria-labelledby="modes">
+      <div class="wrap">
+        <h2 id="modes">What meeting people where they are looks like.</h2>
+        <ul class="modes">
+          {modes.map((m) => <li><h3>{m.t}</h3><p>{m.d}</p></li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" data-step aria-labelledby="haul">
+      <div class="wrap">
+        <h2 id="haul">We stick around for the long haul.</h2>
+        <p class="measure">We start with daily successes, then help build an individualized path forward. That might mean supportive housing, student housing, family reunification, becoming a live-in caregiver, meaningful employment, finding roommates, or saving for an RV.</p>
+        <p class="longhaul">There is more than one way home.</p>
+        <div class="btn-row" style="margin-top:2.2rem">
+          <a class="btn btn-ghost" href={u('work/')}>See our work</a>
+          <a class="btn btn-ghost" href={u('impact/')}>See our impact</a>
+        </div>
+      </div>
+    </section>
+  </Stage>
+</Base>

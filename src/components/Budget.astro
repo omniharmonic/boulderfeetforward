@@ -1,0 +1,34 @@
+---
+import budget from '../data/budget.json';
+import { money } from '../lib/url';
+const total = budget.annualTotal;
+const cls = ['t1', 't2', 't3'];
+---
+<div class="budget">
+  <p class="lead" style="max-width:36ch">A full year of this work costs {money(budget.annualTotal)}, or {money(budget.monthlyTotal)} a month.</p>
+  <p class="measure muted">{budget.fullCapacityNote}</p>
+  <div class="giftbar" role="img" aria-label={`Where a year of giving goes: ${budget.tiers.map((t) => `${t.name} ${money(t.annual)}`).join(', ')}.`}>
+    {budget.tiers.map((t, i) => <span class={cls[i]} style={`flex:${t.annual}`} />)}
+  </div>
+  <ul class="giftkey">
+    {budget.tiers.map((t, i) => <li><i class={cls[i]} style={`background:${i === 0 ? 'var(--leaf)' : i === 1 ? 'color-mix(in oklab, var(--leaf), var(--gold) 55%)' : 'var(--gold)'}`} />{t.name}, {money(t.annual)} ({Math.round((t.annual / total) * 100)}%)</li>)}
+  </ul>
+  {budget.tiers.map((t, i) => (
+    <section class="tier-block" aria-labelledby={`b-${t.id}`}>
+      <div>
+        <h3 id={`b-${t.id}`}>{t.name}</h3>
+        <p class="tot">{money(t.annual)} a year<br />{money(t.monthly)} a month</p>
+      </div>
+      <dl>
+        {t.items.map((it) => (
+          <div class="row">
+            <dt>{it.name}</dt>
+            <dd>{it.what}</dd>
+            <dd class="amt">{money(it.annual)} a year</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  ))}
+  {budget.footnotes.map((f) => <p class="foot-note">{f}</p>)}
+</div>

@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import Stage from '../components/Stage.astro';
+import PageHead from '../components/PageHead.astro';
+import GivingPaths from '../components/GivingPaths.astro';
+import { u } from '../lib/url';
+---
+<Base title="Give" description="Give where it is needed most, fund something specific, or give supplies.">
+  <Stage>
+    <PageHead title="Help us keep showing up." lead="It is not just a handout. Your gift pays for the meals, and for the people who help someone find a way home." />
+    <section class="section tight">
+      <div class="wrap">
+        <GivingPaths />
+        <p class="measure" style="margin-top:3rem">Curious where it all goes? <a href={u('impact/#where-it-goes')}>See how a year of giving is spent.</a></p>
+      </div>
+    </section>
+  </Stage>
+</Base>

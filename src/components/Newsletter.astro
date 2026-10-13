@@ -1,0 +1,16 @@
+---
+import site from '../data/site.json';
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+const { newsletterAction, newsletterEmailField, newsletterHoneypotField } = site.integrations;
+const mailto = `mailto:${site.contact.email}?subject=${encodeURIComponent('Add me to the newsletter')}`;
+---
+<form class="newsletter" data-newsletter data-action={newsletterAction} data-field={newsletterEmailField} data-hp={newsletterHoneypotField} data-mailto={mailto} novalidate>
+  <label class={compact ? 'sr' : ''} for={compact ? 'nl-email-f' : 'nl-email'}>Email address</label>
+  <div class="nl-row">
+    <input id={compact ? 'nl-email-f' : 'nl-email'} type="email" name="email" autocomplete="email" required placeholder="you@example.com" />
+    <button class="btn btn-primary" type="submit">Join the newsletter</button>
+  </div>
+  <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+  <p class="status" role="status" aria-live="polite" data-status></p>
+</form>

@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Stage from '../../components/Stage.astro';
+import PageHead from '../../components/PageHead.astro';
+import { u } from '../../lib/url';
+const events = (await getCollection('events')).filter((e) => e.data.kind === 'weekly').sort((a, b) => a.data.order - b.data.order);
+---
+<Base title="Our work" description="Two weekly outreach events, peer support, and case management, all from the same team.">
+  <Stage>
+    <PageHead title="We are there every day." lead="Two weekly events in Central Park are where most people first meet us. Peer support and case management grow from there, when people are ready." />
+
+    <section class="section tight" data-step aria-labelledby="events">
+      <div class="wrap">
+        <h2 id="events" class="sr">Weekly events</h2>
+        <div class="events">
+          {events.map((e) => (
+            <article class="event">
+              <p class="when">{e.data.day}s<small>{e.data.time} · {e.data.place}<br />Next: <span class="next-date" data-next={e.data.day}></span></small></p>
+              <div>
+                <h3>{e.data.title}</h3>
+                <p>{e.data.summary}</p>
+                <a href={u('work/weekly-outreach/') + '#' + e.id}>What we offer</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section tight" data-step aria-labelledby="deeper">
+      <div class="wrap">
+        <h2 id="deeper">When someone is ready to go further.</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>Peer support</h3>
+            <p>Zero-barrier support from people who listen without judgment, help you make plans, and tell you the truth. It starts informal and flexible, and becomes more structured when you want it to.</p>
+            <a class="btn btn-ghost btn-sm" href={u('work/peer-support/')}>About peer support</a>
+          </article>
+          <article class="card">
+            <h3>Case management</h3>
+            <p>Sustained, individualized support toward goals you set for yourself: housing, documents, benefits, health care, and follow-through when something falls apart.</p>
+            <a class="btn btn-ghost btn-sm" href={u('work/case-management/')}>About case management</a>
+          </article>
+        </div>
+      </div>
+    </section>
+  </Stage>
+</Base>

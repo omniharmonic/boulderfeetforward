@@ -1,0 +1,36 @@
+{
+  "asOf": "October 2026",
+  "source": "BFF Information Packet",
+  "reach": {
+    "peoplePerWeek": 120,
+    "mealsSinceStart": 13705,
+    "mealsSinceYear": 2024,
+    "questionsPerDay": 10,
+    "stabilizingConnectionsPerWeek": "two or three"
+  },
+  "deeper": {
+    "peerSupportPerYear": 20
+  },
+  "housing": {
+    "reachStablePerYear": 20,
+    "tier1Only": 5,
+    "careTeam": 10,
+    "primary": 5,
+    "selfResolutionsOutOfFive": 4
+  },
+  "volunteers": {
+    "hours2024": 424,
+    "valueDollars2024": 16959,
+    "note": "Tuesday outreach only. Friday hours are not included."
+  },
+  "inKind": {
+    "donatedFoodDollars2024": 24114
+  },
+  "supplies": {
+    "careItemsPerYear": 11360,
+    "costPerCareItem": 0.27,
+    "mealsPerMonth": 458,
+    "ridesPerMonth": 370,
+    "laundryVouchersPerMonth": 20
+  }
+}

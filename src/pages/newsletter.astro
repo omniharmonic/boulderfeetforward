@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import Stage from '../components/Stage.astro';
+import PageHead from '../components/PageHead.astro';
+import Newsletter from '../components/Newsletter.astro';
+---
+<Base title="Newsletter" description="News from the park, a few times a year.">
+  <Stage>
+    <PageHead title="Hear from the park." lead="What we are seeing, what we need, and what your support made possible." />
+    <section class="section tight" data-step>
+      <div class="wrap"><div class="form-card"><Newsletter /></div></div>
+    </section>
+  </Stage>
+</Base>

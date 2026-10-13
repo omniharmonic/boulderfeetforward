@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+interface Props { label?: string; only?: string[] }
+const { label = 'What our neighbors say', only } = Astro.props;
+const requireConsent = import.meta.env.PUBLIC_REQUIRE_CONSENT === 'true';
+const showFlags = import.meta.env.PUBLIC_SHOW_DRAFTS !== 'false';
+let items = (await getCollection('testimonials')).sort((a, b) => a.data.order - b.data.order);
+if (only) items = items.filter((t) => only.includes(t.id));
+if (requireConsent) items = items.filter((t) => !t.data.needsConsent);
+---
+{items.length > 0 && (
+  <div data-carousel role="group" aria-roledescription="carousel" aria-label={label}>
+    <div class="quotes-wrap">
+      <div class="quotes" tabindex="0" role="group" aria-label={`${label}. Scroll sideways or use the buttons.`} data-lenis-prevent>
+        {items.map((t, i) => (
+          <figure class={`quote${t.data.quote.length > 80 ? ' long' : ''}`} aria-roledescription="slide" aria-label={`${i + 1} of ${items.length}`} style="margin:0">
+            <blockquote>
+              <p class="q">&ldquo;{t.data.quote}&rdquo;</p>
+            </blockquote>
+            <figcaption>
+              <p class="who">{t.data.name}</p>
+              {t.data.context && <p class="ctx">{t.data.context}</p>}
+              {t.data.videoUrl && <a class="watch" href={t.data.videoUrl} rel="noopener">Watch their story</a>}
+              {showFlags && t.data.needsConsent && <p class="consent-flag">Waiting on this person&rsquo;s written OK before launch.</p>}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+    {items.length > 1 && (
+      <div class="q-controls">
+        <button class="icon-btn" type="button" data-prev aria-label="Previous quote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg></button>
+        <button class="icon-btn" type="button" data-next aria-label="Next quote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg></button>
+        <div class="q-dots" role="tablist" aria-label="Choose a quote">
+          {items.map((t, i) => <button type="button" role="tab" aria-selected={i === 0 ? 'true' : 'false'} aria-label={`Quote ${i + 1}, ${t.data.name}`} />)}
+        </div>
+      </div>
+    )}
+  </div>
+)}

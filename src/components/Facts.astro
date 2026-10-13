@@ -1,0 +1,49 @@
+---
+import stats from '../data/stats.json';
+interface Props { full?: boolean }
+const { full = false } = Astro.props;
+const foot = (cls = '', side: 'l' | 'r' = 'l') => ({ cls, side });
+const five = [foot(), foot('', 'r'), foot(), foot('', 'r'), foot('out')];
+const feet = (n: number) => Array.from({ length: n });
+---
+<div class="facts">
+  <div>
+    <p class="fact">In a typical week, we meet about <span class="num">{stats.reach.peoplePerWeek}</span> different people.</p>
+    {full && <p class="fact-note">Across both weekly events. About 85 come to Tuesdays in the Park.</p>}
+  </div>
+  <div>
+    <p class="fact">We have served <span class="num">{stats.reach.mealsSinceStart.toLocaleString('en-US')}</span> meals since {stats.reach.mealsSinceYear}.</p>
+  </div>
+  <div>
+    <p class="fact">Every day, our peers answer about <span class="num">{stats.reach.questionsPerDay}</span> questions about where to find something, who to call, or what comes next.</p>
+  </div>
+  {full && (
+    <div>
+      <p class="fact">About two or three times a week, someone connects with a stabilizing resource, with our help.</p>
+    </div>
+  )}
+  <div>
+    <p class="fact">Each year, about <span class="num">{stats.housing.reachStablePerYear}</span> people we have worked with reach stable housing.</p>
+    <div class="viz dots" role="img" aria-label="Twenty people: five where our part is basic needs, ten where we are part of a larger care team, five where we are the primary support.">
+      <div class="dotgroup g1"><div class="dd">{feet(5).map(() => <i />)}</div><p class="cap"><b>5</b> where we gave basic needs. We count the connection, but we do not claim the housing.</p></div>
+      <div class="dotgroup g2"><div class="dd">{feet(10).map(() => <i />)}</div><p class="cap"><b>10</b> where we are part of a larger care team.</p></div>
+      <div class="dotgroup g3"><div class="dd">{feet(5).map(() => <i />)}</div><p class="cap"><b>5</b> where we are the primary support.</p></div>
+    </div>
+  </div>
+  <div>
+    <p class="fact">Of the people who reach housing with us as their primary support, <span class="num">4 out of 5</span> found their own way there.</p>
+    <div class="viz five" role="img" aria-label="Five pairs of footprints, four filled in.">
+      {five.map((f) => (
+        <svg viewBox={f.side === 'l' ? '0 0 136.2 311.3' : '0 0 162.4 325.3'} class={f.cls} aria-hidden="true"><use href={`#foot-${f.side}`} /></svg>
+      ))}
+    </div>
+    <p class="fact-note">Self-resolutions are individual paths home that the person chose and pursued.</p>
+  </div>
+  {full && (
+    <div>
+      <p class="fact">Volunteers gave about <span class="num">{stats.volunteers.hours2024}</span> hours at Tuesday events in 2024, worth at least ${stats.volunteers.valueDollars2024.toLocaleString('en-US')}.</p>
+      <p class="fact-note">{stats.volunteers.note}</p>
+    </div>
+  )}
+  <p class="fact-note" style="margin-top:0">Numbers as of {stats.asOf}, from the Boulder Feet Forward information packet.</p>
+</div>

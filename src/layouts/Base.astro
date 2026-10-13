@@ -1,0 +1,58 @@
+---
+import '@fontsource-variable/newsreader/opsz.css';
+import '@fontsource/atkinson-hyperlegible/400.css';
+import '@fontsource/atkinson-hyperlegible/700.css';
+import '../styles/global.css';
+import Sprite from '../components/Sprite.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import site from '../data/site.json';
+import { u } from '../lib/url';
+
+interface Props { title?: string; description?: string; path?: string; }
+const { title, description = site.description, path = '' } = Astro.props;
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name}: ${site.tagline}`;
+const canonical = new URL(path || Astro.url.pathname, Astro.site).href;
+// While the site is password-protected, ask search engines to stay away.
+// Set PUBLIC_NOINDEX=false in the launch build to allow indexing.
+const noindex = import.meta.env.PUBLIC_NOINDEX !== 'false';
+---
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="theme-color" content="#e9e6d2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f1a13" media="(prefers-color-scheme: dark)" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href={u('favicon.svg')} />
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        d.className = d.className.replace('no-js', 'js');
+        try { var t = localStorage.getItem('bff-theme'); if (t === 'day' || t === 'night') d.setAttribute('data-theme', t); } catch (e) {}
+        if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduce');
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Sprite />
+    <Header />
+    <main id="main"><slot /></main>
+    <Footer />
+    <script>
+      import '../scripts/site';
+      import '../scripts/trail';
+      import '../scripts/wheel';
+      import '../scripts/carousel';
+      import '../scripts/volunteer';
+    </script>
+  </body>
+</html>

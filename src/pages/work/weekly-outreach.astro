@@ -1,0 +1,42 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Stage from '../../components/Stage.astro';
+import PageHead from '../../components/PageHead.astro';
+import partners from '../../data/partners.json';
+import { u } from '../../lib/url';
+const events = (await getCollection('events')).filter((e) => e.data.kind === 'weekly').sort((a, b) => a.data.order - b.data.order);
+const rendered = await Promise.all(events.map(async (e) => ({ e, Content: (await render(e)).Content })));
+---
+<Base title="Weekly outreach" description="Tuesdays in the Park and Friday Breakfast Club, every week in Central Park, Boulder.">
+  <Stage>
+    <PageHead title="Come as you are." lead="Meals, supplies and people who can help, in one place, twice a week. No sign-up, no questions." />
+    {rendered.map(({ e, Content }) => (
+      <section class="section tight" data-step id={e.id} aria-labelledby={`h-${e.id}`}>
+        <div class="wrap">
+          <div class="event" style="border-top:0;padding-top:0">
+            <p class="when">{e.data.day}s<small>{e.data.time} · {e.data.place}<br />Since {e.data.since}. Next: <span class="next-date" data-next={e.data.day}></span></small></p>
+            <div>
+              <h2 id={`h-${e.id}`} style="font-size:clamp(1.9rem,1.2rem+2.4vw,3rem)">{e.data.title}</h2>
+              <p class="deck">{e.data.summary}</p>
+              <h3 style="font-size:1.35rem">What is there</h3>
+              <ul class="offer-list">{e.data.offerings.map((o) => <li>{o}</li>)}</ul>
+              <div class="prose" style="margin-top:1.8rem"><Content /></div>
+              {e.data.needsVolunteers && <p style="margin-top:1.4rem"><a class="btn btn-ghost btn-sm" href={u('volunteer/')}>Help at this event</a></p>}
+            </div>
+          </div>
+        </div>
+      </section>
+    ))}
+    <section class="section tight" data-step aria-labelledby="partners">
+      <div class="wrap">
+        <h2 id="partners">Partners who show up with us.</h2>
+        <p class="measure">Our events are a gathering place for providers, so people can meet them somewhere they already feel comfortable.</p>
+        <ul class="partners" style="margin-top:1.2rem">
+          {partners.providers.map((p) => <li><a href={p.url} rel="noopener">{p.name}</a></li>)}
+          {partners.community.map((p) => <li>{p.url ? <a href={p.url} rel="noopener">{p.name}</a> : p.name}</li>)}
+        </ul>
+      </div>
+    </section>
+  </Stage>
+</Base>

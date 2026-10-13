@@ -1,0 +1,6 @@
+---
+interface Props { draft?: boolean; note?: string }
+const { draft = false, note } = Astro.props;
+const show = draft && import.meta.env.PUBLIC_SHOW_DRAFTS !== 'false';
+---
+{show && <p class="draft-note"><strong>Draft for Libby.</strong> {note ?? 'This wording was written from the information packet. Please read it, fix anything that is off, then switch off "Draft" in the editor and this note will disappear.'}</p>}

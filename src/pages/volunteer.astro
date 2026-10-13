@@ -1,0 +1,83 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Stage from '../components/Stage.astro';
+import PageHead from '../components/PageHead.astro';
+import DraftNote from '../components/DraftNote.astro';
+import site from '../data/site.json';
+const entry = (await getEntry('pages', 'volunteer'))!;
+const { Content } = await render(entry);
+const events = (await getCollection('events')).filter((e) => e.data.needsVolunteers).sort((a, b) => a.data.order - b.data.order);
+const faqs = (await getCollection('faq')).filter((f) => f.data.page === 'volunteer').sort((a, b) => a.data.order - b.data.order);
+const faqRendered = await Promise.all(faqs.map(async (f) => ({ f, Content: (await render(f)).Content })));
+const mailto = `mailto:${site.contact.email}?subject=${encodeURIComponent('Volunteer sign-up')}`;
+const today = new Date().toISOString().slice(0, 10);
+---
+<Base title="Volunteer" description={entry.data.description}>
+  <Stage>
+    <PageHead title="Be one of the people who shows up." lead="Our weekly events run on volunteers. No experience needed." />
+
+    <section class="section tight" data-step>
+      <div class="wrap">
+        <DraftNote draft={entry.data.draft} />
+        <div class="prose"><Content /></div>
+      </div>
+    </section>
+
+    <section class="section tight" data-step aria-labelledby="shifts">
+      <div class="wrap">
+        <h2 id="shifts">Pick a shift.</h2>
+        <div class="events">
+          {events.map((e) => (
+            <article class="event">
+              <p class="when">{e.data.day}s<small>{e.data.time} · {e.data.place}<br />Next: <span class="next-date" data-next={e.data.day}></span></small></p>
+              <div>
+                <h3>{e.data.title}</h3>
+                <p>Arrive a little early. Our shift lead will show you the ropes before we start.</p>
+                <button class="btn btn-primary btn-sm" type="button" data-volunteer-open data-shift={e.data.title}>I&rsquo;m in</button>
+              </div>
+            </article>
+          ))}
+        </div>
+        <p class="measure" style="margin-top:1.6rem">Coming with a group, or want to share a skill like yoga, art or poetry? <button class="btn btn-ghost btn-sm" type="button" data-volunteer-open data-shift="Something else">Tell us about it</button></p>
+      </div>
+    </section>
+
+    <section class="section tight" data-step aria-labelledby="faq">
+      <div class="wrap">
+        <h2 id="faq">Questions people ask.</h2>
+        <div class="faq">
+          {faqRendered.map(({ f, Content }) => (
+            <details>
+              <summary>{f.data.question}</summary>
+              <div class="prose"><Content /></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  </Stage>
+
+  <dialog class="vol" aria-labelledby="vol-title">
+    <div class="inner">
+      <button class="icon-btn close" type="button" data-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
+      <h2 id="vol-title" style="font-size:1.9rem">Sign up to volunteer</h2>
+      <form method="dialog" data-endpoint={site.integrations.volunteerEndpoint} data-mailto={mailto} novalidate>
+        <div class="field"><label for="v-name">Your name</label><input id="v-name" name="name" type="text" autocomplete="name" required /></div>
+        <div class="field"><label for="v-contact">Email or phone</label><input id="v-contact" name="contact" type="text" autocomplete="email" required /><span class="hint">So we can confirm with you.</span></div>
+        <div class="field"><label for="v-shift">Which shift?</label>
+          <select id="v-shift" name="shift">
+            {events.map((e) => <option value={e.data.title}>{e.data.title}, {e.data.day}s {e.data.time}</option>)}
+            <option value="Something else">Something else</option>
+          </select>
+        </div>
+        <div class="field"><label for="v-date">Which day? (optional)</label><input id="v-date" name="date" type="date" min={today} /></div>
+        <div class="field"><label for="v-people">How many people?</label><input id="v-people" name="people" type="number" min="1" max="60" value="1" inputmode="numeric" /></div>
+        <div class="field"><label for="v-notes">Anything we should know? (optional)</label><textarea id="v-notes" name="notes"></textarea></div>
+        <div class="hp" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+        <button class="btn btn-primary" type="submit">Sign me up</button>
+        <p class="status" role="status" aria-live="polite" data-status></p>
+      </form>
+    </div>
+  </dialog>
+</Base>

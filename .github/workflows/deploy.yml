@@ -1,0 +1,71 @@
+# Builds the site and publishes it to GitHub Pages every time someone saves a change.
+# That includes changes made in the site editor at /admin/.
+#
+# While the site is private, the "Password-protect" step encrypts every page.
+# When BFF is ready to launch publicly, delete that one step (see DEPLOY.md).
+#
+# Designed and built by Benjamin Life (@omniharmonic) as a gift to Boulder Feet Forward.
+name: Build and publish
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - id: pages
+        uses: actions/configure-pages@v5
+
+      - run: npm ci
+
+      - name: Build the site
+        run: npm run build
+        env:
+          SITE_URL: ${{ steps.pages.outputs.origin }}
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          # While gated, keep search engines out. Set to "false" at launch.
+          PUBLIC_NOINDEX: "true"
+          # Show the "Draft for Libby" notes and "waiting on written OK" flags. Set to "false" at launch.
+          PUBLIC_SHOW_DRAFTS: "true"
+          # At launch, set to "true" to hide any quote that still says "Waiting on written OK".
+          PUBLIC_REQUIRE_CONSENT: "false"
+
+      # ---- DELETE THIS WHOLE STEP TO LAUNCH PUBLICLY ----
+      - name: Password-protect the site
+        run: node tools/gate.mjs
+        env:
+          SITE_PASSWORD: ${{ secrets.SITE_PASSWORD }}
+      # ---- END OF STEP TO DELETE ----
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

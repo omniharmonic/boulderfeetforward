@@ -1,0 +1,52 @@
+---
+import site from '../data/site.json';
+import Newsletter from './Newsletter.astro';
+import { u } from '../lib/url';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <svg class="skyline" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="var(--sunken)" d="M0 120V84c60-10 110-34 180-40s120 18 190 14 110-30 170-34 90 14 140 8 80-30 130-34 80 16 120 20 70-12 110-12 60 14 110 8V120z" />
+    <path fill="none" stroke="var(--art)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" d="M0 84c60-10 110-34 180-40s120 18 190 14 110-30 170-34 90 14 140 8 80-30 130-34 80 16 120 20 70-12 110-12 60 14 110 8" />
+  </svg>
+  <div class="wrap flush" style="width:min(100% - 2 * var(--gutter), var(--maxw)); margin-inline:auto;">
+    <div class="footer-grid">
+      <div>
+        <svg class="footer-lockup" role="img" aria-label="Boulder Feet Forward"><use href="#bff-lockup" width="100%" height="100%" /></svg>
+        <p>{site.tagline} Every day. Step by step.</p>
+      </div>
+      <div>
+        <h2>Explore</h2>
+        <ul>
+          <li><a href={u('approach/')}>Our approach</a></li>
+          <li><a href={u('work/')}>Our work</a></li>
+          <li><a href={u('impact/')}>Impact</a></li>
+          <li><a href={u('give/')}>Give</a></li>
+          <li><a href={u('volunteer/')}>Volunteer</a></li>
+          <li><a href={u('about/')}>About us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Find us</h2>
+        <ul>
+          <li>Tuesdays, 2:30 PM</li>
+          <li>Fridays, 11:00 AM</li>
+          <li>{site.findUs.place}</li>
+          <li><a href={`tel:${site.contact.phoneHref}`}>{site.contact.phone}</a></li>
+          <li><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></li>
+          <li>{site.contact.addressLines.join(', ')}</li>
+          {site.social.map((s) => <li><a href={s.url} rel="noopener">{s.label}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <h2>Stay in touch</h2>
+        <p class="small muted">News from the park, a few times a year. No spam.</p>
+        <Newsletter compact />
+      </div>
+    </div>
+    <div class="fine">
+      <p>&copy; {year} Boulder Feet Forward. A peer-led street outreach team in Boulder, Colorado.</p>
+      <p>Website designed and built as a gift by Benjamin Life (<a href="https://x.com/omniharmonic" rel="noopener">@omniharmonic</a>).</p>
+    </div>
+  </div>
+</footer>

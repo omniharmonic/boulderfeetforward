@@ -1,0 +1,331 @@
+# Boulder Feet Forward: site editor
+# Designed and built by Benjamin Life (@omniharmonic) as a gift to Boulder Feet Forward.
+#
+# Everything staff can change is listed here. Page text, quotes, programs, events, the team and the
+# numbers are all editable. Each save makes a small commit to the repository; the site rebuilds itself
+# in about two minutes.
+
+backend:
+  name: github
+  # CHANGE THIS to the account and repository name, for example  boulderfeetforward/website
+  repo: omniharmonic/boulderfeetforward
+  branch: main
+  # To sign in without a token (a "Sign in with GitHub" button), set up a free OAuth client and
+  # put its address here. Until then, editors use "Sign in with token" (see EDITING-GUIDE.md).
+  # base_url: https://YOUR-OAUTH-CLIENT.workers.dev
+
+site_url: /
+display_url: /
+media_folder: public/media
+public_folder: /media
+locale: en
+show_preview_link: false
+
+collections:
+  # ---------------------------------------------------------------- pages
+  - name: pages
+    label: Pages (text)
+    label_singular: Page
+    folder: src/content/pages
+    extension: md
+    format: frontmatter
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    summary: '{{title}}'
+    description: 'The wording of Our mission, Peer support, Case management and Volunteer. Turn off "Draft" once Libby has read a page.'
+    fields:
+      - { name: title, label: "Title, widget: string" }
+      - { name: description, label: "Short description (shows in search results), widget: text, required: false" }
+      - { name: draft, label: "Draft (shows a note to editors until switched off), widget: boolean, default: false, required: false" }
+      - { name: body, label: "Page text, widget: markdown" }
+
+  # ---------------------------------------------------------------- testimonials
+  - name: testimonials
+    label: Quotes from neighbors
+    label_singular: Quote
+    folder: src/content/testimonials
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{slug}}'
+    summary: '{{name}}: {{quote}}'
+    description: 'Only publish a quote after the person has said yes in writing. Leave "Waiting on written OK" on until then.'
+    sortable_fields: ['order', 'name']
+    fields:
+      - { name: quote, label: "What they said (exact words), widget: text" }
+      - { name: name, label: "Name or first name, widget: string" }
+      - { name: context, label: "A line of context (optional), widget: string, required: false" }
+      - { name: videoUrl, label: "Link to a video (optional), widget: string, required: false" }
+      - { name: order, label: "Order (1 shows first), widget: number, value_type: int, default: 100" }
+      - { name: needsConsent, label: "Waiting on written OK to publish, widget: boolean, default: true" }
+      - { name: featured, label: "Featured, widget: boolean, default: false, required: false" }
+
+  # ---------------------------------------------------------------- programs
+  - name: programs
+    label: Ways to fund something specific
+    label_singular: Program
+    folder: src/content/programs
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{slug}}'
+    summary: '{{title}}'
+    fields:
+      - { name: title, label: "Name, widget: string" }
+      - { name: summary, label: "What it pays for, widget: text" }
+      - { name: impact, label: "What a gift does (for example: $19 buys food for about 10 meals.)", widget: string }
+      - { name: impactApprox, label: "Show \"approximate\" next to the amount, widget: boolean, default: true" }
+      - { name: zeffyUrl, label: "Link to the Zeffy giving form, widget: string" }
+      - { name: order, label: "Order, widget: number, value_type: int, default: 100" }
+
+  # ---------------------------------------------------------------- events
+  - name: events
+    label: Weekly events and volunteer shifts
+    label_singular: Event
+    folder: src/content/events
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{slug}}'
+    summary: '{{title}}'
+    description: 'Each weekly event appears on the Work, Volunteer and Contact pages, with the next date worked out automatically.'
+    fields:
+      - { name: title, label: "Name, widget: string" }
+      - { name: kind, label: "Kind, widget: select, options: [weekly, special], default: weekly" }
+      - { name: day, label: "Weekday (for example: Tuesday). For a special event, the date as YYYY-MM-DD", widget: string }
+      - { name: time, label: "Time (for example: 2:30 PM), widget: string" }
+      - { name: place, label: "Place, widget: string, default: 'Central Park, Boulder'" }
+      - { name: since, label: "Year it began (optional), widget: number, value_type: int, required: false" }
+      - { name: summary, label: "One-sentence summary, widget: text" }
+      - name: offerings
+        label: What is there (one line each)
+        widget: list
+        field: { name: item, label: Item, widget: string }
+      - { name: needsVolunteers, label: "Show on the Volunteer page, widget: boolean, default: true" }
+      - { name: order, label: "Order, widget: number, value_type: int, default: 100" }
+      - { name: until, label: "Hide after this date (special events only), widget: string, required: false" }
+      - { name: body, label: "Longer description, widget: markdown" }
+
+  # ---------------------------------------------------------------- team
+  - name: team
+    label: Team
+    label_singular: Person
+    folder: src/content/team
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{slug}}'
+    summary: '{{name}}'
+    fields:
+      - { name: name, label: "Name, widget: string" }
+      - { name: role, label: "Role, widget: string" }
+      - { name: order, label: "Order, widget: number, value_type: int, default: 100" }
+
+  # ---------------------------------------------------------------- faq
+  - name: faq
+    label: Volunteer questions
+    label_singular: Question
+    folder: src/content/faq
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{slug}}'
+    summary: '{{question}}'
+    fields:
+      - { name: question, label: "Question, widget: string" }
+      - { name: page, label: "Page, widget: hidden, default: volunteer" }
+      - { name: order, label: "Order, widget: number, value_type: int, default: 100" }
+      - { name: body, label: "Answer, widget: markdown" }
+
+  # ---------------------------------------------------------------- site data
+  - name: settings
+    label: Site settings and numbers
+    files:
+      - name: site
+        label: Contact, links and sign-ups
+        file: src/data/site.json
+        fields:
+          - { name: name, label: "Organization name, widget: string" }
+          - { name: shortName, label: "Short name, widget: string" }
+          - { name: tagline, label: "Tagline, widget: string" }
+          - { name: description, label: "Description (shows in search results), widget: text" }
+          - name: contact
+            label: Contact
+            widget: object
+            fields:
+              - { name: phone, label: "Phone (as shown), widget: string" }
+              - { name: phoneHref, label: "Phone (digits for tapping, like +17205202097)", widget: string }
+              - { name: email, label: "Email, widget: string" }
+              - name: addressLines
+                label: Mailing address (one line each)
+                widget: list
+                field: { name: line, label: Line, widget: string }
+          - name: findUs
+            label: Where to find us
+            widget: object
+            fields:
+              - { name: place, label: "Place, widget: string" }
+              - { name: note, label: "Note, widget: string" }
+          - name: social
+            label: Social media
+            widget: list
+            fields:
+              - { name: label, label: "Name, widget: string" }
+              - { name: url, label: "Link, widget: string" }
+          - name: giving
+            label: Giving links
+            widget: object
+            fields:
+              - { name: general, label: "Zeffy form for general gifts, widget: string" }
+              - { name: wishlist, label: "Amazon wish list, widget: string" }
+              - { name: sponsorMeals, label: "Zeffy form for meals, widget: string" }
+          - name: integrations
+            label: "Sign-up connections (see the guide before changing)"
+            widget: object
+            fields:
+              - { name: volunteerEndpoint, label: "Volunteer sign-up address (Google Apps Script web app URL), widget: string, required: false" }
+              - { name: newsletterAction, label: "Newsletter form address (from EmailOctopus), widget: string, required: false" }
+              - { name: newsletterEmailField, label: "Newsletter email field name, widget: string, default: email_address" }
+              - { name: newsletterHoneypotField, label: "Newsletter spam-trap field name (from EmailOctopus), widget: string, required: false" }
+          - { name: statsAsOf, label: "Numbers are current as of, widget: string" }
+
+      - name: stats
+        label: Impact numbers
+        file: src/data/stats.json
+        description: 'Update these in one place and they change everywhere. Change the "as of" date when you do.'
+        fields:
+          - { name: asOf, label: "As of (for example: October 2026), widget: string" }
+          - { name: source, label: "Source, widget: string" }
+          - name: reach
+            label: Reach
+            widget: object
+            fields:
+              - { name: peoplePerWeek, label: "Different people in a typical week, widget: number, value_type: int" }
+              - { name: mealsSinceStart, label: "Meals served so far, widget: number, value_type: int" }
+              - { name: mealsSinceYear, label: "...since the year, widget: number, value_type: int" }
+              - { name: questionsPerDay, label: "Resource questions peers answer each day, widget: number, value_type: int" }
+              - { name: stabilizingConnectionsPerWeek, label: "Stabilizing connections each week (in words), widget: string" }
+          - name: deeper
+            label: Deeper support
+            widget: object
+            fields:
+              - { name: peerSupportPerYear, label: "People who move into sustained peer support each year, widget: number, value_type: int" }
+          - name: housing
+            label: Housing
+            widget: object
+            fields:
+              - { name: reachStablePerYear, label: "People who reach stable housing each year, widget: number, value_type: int" }
+              - { name: tier1Only, label: "...where we gave basic needs only, widget: number, value_type: int" }
+              - { name: careTeam, label: "...where we are part of a larger care team, widget: number, value_type: int" }
+              - { name: primary, label: "...where we are the primary support, widget: number, value_type: int" }
+              - { name: selfResolutionsOutOfFive, label: "Self-resolutions out of 5 (primary-support outcomes), widget: number, value_type: int" }
+          - name: volunteers
+            label: Volunteers
+            widget: object
+            fields:
+              - { name: hours2024, label: "Volunteer hours recorded, widget: number, value_type: int" }
+              - { name: valueDollars2024, label: "Value of those hours in dollars, widget: number, value_type: int" }
+              - { name: note, label: "Note, widget: string" }
+          - name: inKind
+            label: Donated goods
+            widget: object
+            fields:
+              - { name: donatedFoodDollars2024, label: "Value of donated food in dollars, widget: number, value_type: int" }
+          - name: supplies
+            label: Supplies
+            widget: object
+            fields:
+              - { name: careItemsPerYear, label: "Care items each year, widget: number, value_type: int" }
+              - { name: costPerCareItem, label: "Average cost per care item (dollars), widget: number, value_type: float" }
+              - { name: mealsPerMonth, label: "Meals each month, widget: number, value_type: int" }
+              - { name: ridesPerMonth, label: "Bus rides each month, widget: number, value_type: int" }
+              - { name: laundryVouchersPerMonth, label: "Laundry vouchers each month, widget: number, value_type: int" }
+
+      - name: budget
+        label: Budget (where a gift goes)
+        file: src/data/budget.json
+        fields:
+          - { name: title, label: "Heading, widget: string" }
+          - { name: monthlyTotal, label: "Whole budget per month, widget: number, value_type: int" }
+          - { name: annualTotal, label: "Whole budget per year, widget: number, value_type: int" }
+          - { name: currentStaffingAnnual, label: "Cost to sustain current staffing per year, widget: number, value_type: int" }
+          - { name: fullCapacityNote, label: "Note about full capacity, widget: text" }
+          - name: footnotes
+            label: Footnotes
+            widget: list
+            field: { name: note, label: Note, widget: text }
+          - name: tiers
+            label: Three levels of support
+            widget: list
+            fields:
+              - { name: id, label: "Id (leave alone), widget: string" }
+              - { name: name, label: "Name, widget: string" }
+              - { name: monthly, label: "Per month, widget: number, value_type: int" }
+              - { name: annual, label: "Per year, widget: number, value_type: int" }
+              - name: items
+                label: Line items
+                widget: list
+                fields:
+                  - { name: name, label: "Name, widget: string" }
+                  - { name: what, label: "What it pays for, widget: text" }
+                  - { name: monthly, label: "Per month, widget: number, value_type: int" }
+                  - { name: annual, label: "Per year, widget: number, value_type: int" }
+
+      - name: dimensions
+        label: Wellness wheel
+        file: src/data/dimensions.json
+        description: 'The eight dimensions and what the team does at each of the three steps. Order 0 sits at the top of the wheel and they run clockwise.'
+        fields:
+          - { name: framework, label: "Framework credit, widget: string" }
+          - name: tiers
+            label: The three steps
+            widget: list
+            fields:
+              - { name: id, label: "Number, widget: number, value_type: int" }
+              - { name: name, label: "Name, widget: string" }
+              - { name: line, label: "One-line description, widget: string" }
+          - name: dimensions
+            label: Dimensions
+            widget: list
+            fields:
+              - { name: slug, label: "Id (leave alone), widget: string" }
+              - { name: name, label: "Name, widget: string" }
+              - { name: order, label: "Position on the wheel (0 is top), widget: number, value_type: int" }
+              - { name: summary, label: "Introduction, widget: text" }
+              - name: tiers
+                label: What we do at each step (three lines)
+                widget: list
+                min: 3
+                max: 3
+                field: { name: item, label: Step, widget: text }
+
+      - name: partners
+        label: Partners and links
+        file: src/data/partners.json
+        fields:
+          - name: providers
+            label: Partner providers
+            widget: list
+            fields:
+              - { name: name, label: "Name, widget: string" }
+              - { name: url, label: "Link, widget: string, required: false" }
+          - name: community
+            label: Other community partners
+            widget: list
+            fields:
+              - { name: name, label: "Name, widget: string" }
+              - { name: url, label: "Link, widget: string, required: false" }
+          - name: referrals
+            label: Where we send donations we cannot use
+            widget: list
+            fields:
+              - { name: for, label: "For, widget: string" }
+              - { name: name, label: "Name, widget: string" }
+              - { name: url, label: "Link, widget: string" }
+          - name: reading
+            label: Further reading
+            widget: list
+            fields:
+              - { name: name, label: "Title, widget: string" }
+              - { name: url, label: "Link, widget: string" }

@@ -1,0 +1,106 @@
+---
+import Base from '../layouts/Base.astro';
+import Stage from '../components/Stage.astro';
+import HeroScene from '../components/HeroScene.astro';
+import Wheel from '../components/Wheel.astro';
+import Facts from '../components/Facts.astro';
+import Carousel from '../components/Carousel.astro';
+import Newsletter from '../components/Newsletter.astro';
+import site from '../data/site.json';
+import { u } from '../lib/url';
+const failed = [
+  'Child protection and foster care',
+  'Family and intimate-partner violence',
+  'The legal and criminal justice systems',
+  'Substance use and the opioid epidemic',
+  'Behavioral health care',
+  'Medical care',
+  'Financial systems',
+  'Climate disaster and food insecurity',
+];
+---
+<Base>
+  <section class="hero">
+    <div class="wrap">
+      <div class="copy">
+        <h1>Meeting people where they are.</h1>
+        <p class="intro">Boulder Feet Forward is a peer-led street outreach team. We visit our neighbors every day with meals, supplies and someone to talk to, and we keep showing up.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href={u('give/')}>Give where it&rsquo;s needed</a>
+          <a class="btn btn-ghost" href={u('volunteer/')}>Volunteer</a>
+        </div>
+        <p class="findus"><span><strong>Tuesdays</strong> 2:30 PM</span><span><strong>Fridays</strong> 11:00 AM</span><span>{site.findUs.place}. {site.findUs.note}</span></p>
+      </div>
+    </div>
+    <HeroScene />
+  </section>
+
+  <Stage>
+    <section class="section story" data-step aria-labelledby="gaps">
+      <div class="wrap">
+        <div class="beat">
+          <h2 id="gaps">When systems fail, people fall through the gaps.</h2>
+          <p class="measure">Many of the people we meet have been failed by a system, sometimes over a whole lifetime. Often more than one:</p>
+          <ul class="failed">{failed.map((f) => <li>{f}</li>)}</ul>
+          <p class="measure" style="margin-top:1.4rem">Services exist, but they are not always within reach of the people who need them most. People tell us they have given up asking for help.</p>
+        </div>
+        <div class="beat">
+          <p class="pivot">Sometimes, we&rsquo;re able to change that.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" data-step aria-labelledby="showup">
+      <div class="wrap">
+        <h2 id="showup">We meet people where they are. Then we keep showing up.</h2>
+        <p class="lead">If someone isn&rsquo;t ready today, we show up again tomorrow. When they are ready, we&rsquo;re already there.</p>
+        <p class="measure" style="margin-top:1.4rem">Our peers are members of this community, and every relationship starts from trust, authenticity and equality. We listen to what people tell us about why they will not use the usual systems, and we build a different way to reach them.</p>
+        <div class="btn-row" style="margin-top:1.6rem"><a class="btn btn-ghost" href={u('work/')}>See what we do</a></div>
+      </div>
+    </section>
+
+    <section class="section" data-step aria-labelledby="pathway">
+      <div class="wrap">
+        <h2 id="pathway">There is no single pathway out of homelessness.</h2>
+        <p class="measure" style="margin-bottom:2.4rem">Housing matters. But four walls and a roof do not automatically create health, stability, community, purpose or home. So we ask what this person needs to move forward, not which program they fit into. Choose a dimension of wellness to see how we help.</p>
+        <Wheel id="home-wheel" />
+        <div class="btn-row" style="margin-top:2.4rem"><a class="btn btn-ghost" href={u('approach/')}>Read about our approach</a></div>
+      </div>
+    </section>
+
+    <section class="section" data-step aria-labelledby="numbers">
+      <div class="wrap">
+        <h2 id="numbers">Small steps add up.</h2>
+        <Facts />
+        <div class="btn-row" style="margin-top:2.4rem"><a class="btn btn-ghost" href={u('impact/')}>See our impact</a></div>
+      </div>
+    </section>
+
+    <section class="section" data-step aria-labelledby="voices">
+      <div class="wrap">
+        <h2 id="voices" class="sr">What our neighbors say</h2>
+        <Carousel />
+      </div>
+    </section>
+
+    <section class="section" data-step aria-labelledby="help">
+      <div class="wrap">
+        <h2 id="help">Help us keep showing up.</h2>
+        <p class="lead">A gift, an afternoon, or a bag of supplies all end up in the same place: in someone&rsquo;s hands, in Central Park.</p>
+        <div class="btn-row" style="margin-top:1.8rem">
+          <a class="btn btn-primary" href={u('give/')}>Give where it&rsquo;s needed</a>
+          <a class="btn btn-ghost" href={u('volunteer/')}>Sign up to volunteer</a>
+          <a class="btn btn-ghost" href={u('give/#give-things')}>Give supplies</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section tight" data-step aria-labelledby="news">
+      <div class="wrap">
+        <h2 id="news">Hear from the park.</h2>
+        <p class="measure">A short note a few times a year: what we are seeing, what we need, and what your support made possible.</p>
+        <div class="form-card" style="margin-top:1.4rem"><Newsletter /></div>
+      </div>
+    </section>
+  </Stage>
+</Base>
