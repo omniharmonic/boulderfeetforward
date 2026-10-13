@@ -67,6 +67,8 @@ const team = defineCollection({
   schema: z.object({
     name: z.string(),
     role: z.string(),
+    photo: z.string().optional(),
+    photoAlt: z.string().optional(),
     order: z.number().default(100),
   }),
 });

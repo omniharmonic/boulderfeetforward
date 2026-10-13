@@ -12,7 +12,8 @@ export default defineConfig({
   base,
   output: 'static',
   trailingSlash: 'always',
-  build: { format: 'directory' },
+  // Inline the stylesheet so a page never paints before its styles (the password gate rewrites the page after decrypting).
+  build: { format: 'directory', inlineStylesheets: 'always' },
   // Old Google Sites addresses keep working.
   redirects: {
     '/home': '/',

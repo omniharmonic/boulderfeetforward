@@ -320,6 +320,7 @@ h4 { font-size: 1.25rem; line-height: 1.2; font-weight: 450; }
 .prose.mission p:first-child { font-size: clamp(1.9rem, 1rem + 2.6vw, 3.1rem); line-height: 1.1; max-width: 22ch; padding-bottom: 0.8em; }
 .prose.mission p:last-child { font-size: clamp(2rem, 1rem + 3vw, 3.4rem); padding-top: 0.3em; }
 .people { display: grid; gap: 1.6rem 3rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+.person img { display: block; width: 100%; max-width: 22rem; aspect-ratio: 1; object-fit: cover; object-position: 50% 30%; border-radius: var(--radius); margin-bottom: 1.1rem; background: var(--sunken); }
 .person h3 { margin: 0 0 0.2rem; }
 .person p { margin: 0; color: var(--ink-2); }
 .partners { list-style: none; margin: 0; padding: 0; columns: 2 15rem; column-gap: 2.5rem; }
@@ -395,16 +396,13 @@ dialog.vol .close { position: absolute; top: 0.7rem; right: 0.7rem; }
 .two-col p { margin: 0; color: var(--ink-2); }
 .stairs { display: grid; gap: 1.6rem; margin-top: 2.4rem; }
 .stairs .stair { border-top: 6px solid var(--leaf); padding-top: 1rem; }
-.stairs .stair:nth-child(2) { border-top-color: color-mix(in oklab, var(--leaf), var(--gold) 50%); margin-left: clamp(0.5rem, 3vw, 2rem); }
-.stairs .stair:nth-child(3) { border-top-color: var(--gold); margin-left: clamp(1rem, 6vw, 4rem); }
+.stairs .stair:nth-child(2) { border-top-color: color-mix(in oklab, var(--leaf), var(--gold) 50%); }
+.stairs .stair:nth-child(3) { border-top-color: var(--gold); }
 .stairs h3 { margin-bottom: 0.25em; }
 .stairs p { margin: 0; color: var(--ink-2); }
 .stairs .stair b { font-family: var(--serif); font-size: 1.1rem; font-weight: 450; color: var(--ink); display: block; margin-bottom: 0.2rem; }
 @media (min-width: 62rem) {
-  .stairs { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; gap: 2rem; }
-  .stairs .stair, .stairs .stair:nth-child(2), .stairs .stair:nth-child(3) { margin-left: 0; }
-  .stairs .stair:nth-child(1) { margin-top: 5.5rem; }
-  .stairs .stair:nth-child(2) { margin-top: 2.75rem; }
+  .stairs { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 2rem; }
 }
 .modes { list-style: none; margin: 1.6rem 0 0; padding: 0; display: grid; gap: 0; }
 .modes li { padding: 1.1rem 0; border-top: 1px solid var(--line); max-width: none; display: grid; gap: 0.2rem 3rem; }

@@ -66,6 +66,15 @@ tpl = tpl.replace('</style>', '  #gate-error { margin: 14px 0 0; padding: 10px 1
 // Check "remember me" by default so people are not asked again on every page.
 tpl = tpl.replace('<input id="staticrypt-remember" type="checkbox" name="remember" />', '<input id="staticrypt-remember" type="checkbox" name="remember" checked />');
 tpl = tpl.replace('<meta name="viewport"', '<meta name="robots" content="noindex, nofollow" />\n        <link rel="icon" href="data:," />\n        <meta name="viewport"');
+// Warm the browser cache with the site fonts while the visitor is typing the password, so the page
+// does not flash a fallback font when it opens. The base path comes from the favicon link in the build.
+{
+  const home = readFileSync(join(dist, 'index.html'), 'utf8');
+  const prefix = (home.match(/href="([^"]*?)favicon\.svg"/) || [, '/'])[1];
+  const fonts = readdirSync(join(dist, '_astro')).filter((f) => /^(newsreader-latin-opsz|atkinson-hyperlegible-latin-(400|700))-?.*\.woff2$/.test(f) && !f.includes('latin-ext'));
+  const links = fonts.map((f) => `<link rel="preload" as="font" type="font/woff2" href="${prefix}_astro/${f}" crossorigin>`).join('\n        ');
+  tpl = tpl.replace('<meta name="viewport"', links + '\n        <meta name="viewport"');
+}
 const work = join(tmpdir(), 'bff-gate-' + process.pid);
 mkdirSync(work, { recursive: true });
 const tplPath = join(work, 'template.html');
