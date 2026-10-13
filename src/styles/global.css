@@ -185,6 +185,8 @@ h4 { font-size: 1.25rem; line-height: 1.2; font-weight: 450; }
 .wheel { width: 100%; max-width: 34rem; margin-inline: auto; }
 .wheel svg { width: 100%; height: auto; display: block; overflow: visible; }
 .seg { cursor: pointer; outline: none; }
+/* Phones paint a dark translucent box over any tapped clickable element. On the diagonal wedges that box is a rectangle covering neighbours, which read as a dark flash before the wedge changed. */
+.wheel, .wheel svg, .seg { -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; touch-action: manipulation; }
 .seg .body { fill: color-mix(in oklab, var(--dim) 20%, var(--raised)); stroke: var(--paper); stroke-width: 3; transition: fill 0.25s; }
 .seg .band { fill: var(--dim); stroke: var(--paper); stroke-width: 3; }
 .seg .shape { transition: transform 0.25s cubic-bezier(0.3, 0.7, 0.3, 1); transform-origin: 250px 250px; }
