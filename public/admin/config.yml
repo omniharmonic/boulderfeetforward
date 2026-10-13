@@ -14,8 +14,7 @@ backend:
   # put its address here. Until then, editors use "Sign in with token" (see EDITING-GUIDE.md).
   # base_url: https://YOUR-OAUTH-CLIENT.workers.dev
 
-site_url: /
-display_url: /
+# site_url and display_url are left out on purpose: they must be full web addresses, and the address changes at launch.
 media_folder: public/media
 public_folder: /media
 locale: en

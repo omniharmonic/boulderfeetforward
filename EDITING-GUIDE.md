@@ -23,6 +23,12 @@ For Boulder Feet Forward staff. You do not need to know how to code. Anything yo
 
 The token is saved in your browser, so you stay signed in on that computer. **Do not share it or post it anywhere.** It acts as you. If you lose track of one, delete it on the same GitHub page and make a new one.
 
+### Want to try it first?
+
+You do not have to commit to anything to see how it feels. Ask whoever set up the site to sit with you and sign in while you watch. Make a small change (for example, change a team member's role), press **Save**, and watch it appear on the site in about a minute. Then undo it from GitHub's **Commits** list, or just change it back.
+
+Nobody can sign in until they have been added to the repository with **Write** access (Settings, Collaborators). That is also how you take access away: remove the person, and delete their token.
+
 ---
 
 ## What each section changes

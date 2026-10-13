@@ -20,7 +20,7 @@ const events = (await getCollection('events')).filter((e) => e.data.kind === 'we
               <div>
                 <h3>{e.data.title}</h3>
                 <p>{e.data.summary}</p>
-                <a href={u('work/weekly-outreach/') + '#' + e.id}>What we offer</a>
+                <a class="more" href={u('work/weekly-outreach/') + '#' + e.id}>What we offer</a>
               </div>
             </article>
           ))}
