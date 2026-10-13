@@ -67,7 +67,7 @@ parts.append(P(f"M-900 {G} L0 {G} C 120 {G-12}, 180 {G+8}, 300 {G} C 420 {G-8}, 
 def pine(x, y, s, d):
     h, w = 96 * s, 34 * s
     return P(f"M{x} {y} v{-h*.18:.1f} M{x} {y-h*.18:.1f} l{-w*.5:.1f} 0 l{w*.5:.1f} {-h*.34:.1f} l{-w*.36:.1f} 0 l{w*.36:.1f} {-h*.3:.1f} l{-w*.2:.1f} 0 l{w*.2:.1f} {-h*.3:.1f} l{w*.2:.1f} {h*.3:.1f} l{-w*.2:.1f} 0 l{w*.36:.1f} {h*.3:.1f} l{-w*.36:.1f} 0 l{w*.5:.1f} {h*.34:.1f} z", 'leaf', d)
-for x, dy, s, d in [(1170,0,1.1,1.6),(1134,6,.7,1.7)]:
+for x, dy, s, d in [(478,0,.62,1.6),(446,5,.4,1.7)]:
     parts.append(pine(x, G + dy, s, d))
 # footprints walking across, heading right
 walk = []

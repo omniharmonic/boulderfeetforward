@@ -26,6 +26,8 @@ if (stage && host) {
     host.replaceChildren();
     const w = host.clientWidth;
     height = host.clientHeight;
+    lastW = w;
+    lastH = height;
     if (w < 20 || height < 200) return;
     const rect = stage.getBoundingClientRect();
     top = rect.top + scrollY;
@@ -95,10 +97,19 @@ if (stage && host) {
   const queue = () => { if (!frame) frame = requestAnimationFrame(update); };
   addEventListener('scroll', queue, { passive: true });
 
+  // Rebuild only when the width changes or the page grows or shrinks a lot. Small height changes
+  // (a carousel quote, an opened card) would otherwise redraw the whole path and make the feet jump.
   let t = 0;
+  let lastW = 0;
+  let lastH = 0;
   const rebuild = () => { clearTimeout(t); t = window.setTimeout(build, 120); };
-  new ResizeObserver(rebuild).observe(stage);
-  addEventListener('resize', rebuild);
+  const check = () => {
+    const w = host.clientWidth;
+    const h = host.clientHeight;
+    if (w !== lastW || Math.abs(h - lastH) > 240) { lastW = w; lastH = h; rebuild(); }
+  };
+  new ResizeObserver(check).observe(stage);
+  addEventListener('resize', check);
   addEventListener('load', build);
   build();
 }

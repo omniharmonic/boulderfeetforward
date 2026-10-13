@@ -14,9 +14,11 @@ if (dialog) {
       if (b.dataset.shift) shiftField.value = b.dataset.shift;
       if (b.dataset.date) dateField.value = b.dataset.date;
       dialog.showModal();
+      (window as any).__lenis?.stop();
       (form.elements.namedItem('name') as HTMLInputElement).focus();
     }),
   );
+  dialog.addEventListener('close', () => (window as any).__lenis?.start());
   dialog.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', () => dialog.close()));
   dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
 

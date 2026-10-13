@@ -79,8 +79,11 @@ h4 { font-size: 1.25rem; line-height: 1.2; font-weight: 450; }
 .stage { position: relative; }
 .wrap { width: min(100% - 2 * var(--gutter), var(--maxw)); margin-inline: auto; padding-left: var(--rail); }
 .wrap.flush { padding-left: 0; }
-.section { padding-block: clamp(3.5rem, 8vw, 7.5rem); }
-.section.tight { padding-block: clamp(2.5rem, 5vw, 4.5rem); }
+.section { padding-block: clamp(2.5rem, 5vw, 4.5rem); }
+.section.tight { padding-block: clamp(2rem, 4vw, 3.5rem); }
+/* a short gradient dash marks the break between one section and the next */
+.stage .section + .section > .wrap::before { content: ''; display: block; width: 3.5rem; height: 3px; border-radius: 3px; background: linear-gradient(90deg, var(--g0), var(--g3)); margin-bottom: clamp(1.4rem, 3vw, 2.2rem); }
+.stage > .section:last-child { padding-bottom: clamp(3.5rem, 8vw, 6rem); }
 .measure { max-width: 62ch; }
 .lead { font-family: var(--serif); font-size: clamp(1.5rem, 1rem + 1.8vw, 2.3rem); line-height: 1.25; letter-spacing: -0.01em; max-width: 34ch; text-wrap: balance; font-weight: 380; }
 .muted { color: var(--ink-2); }
@@ -197,12 +200,14 @@ h4 { font-size: 1.25rem; line-height: 1.2; font-weight: 450; }
 .wheel .hub-t { fill: var(--ink); font: 380 25px var(--serif); text-anchor: middle; }
 .wheel .hub-s { fill: var(--ink-2); font: 400 12.5px var(--sans); text-anchor: middle; }
 .dim-panel { background: var(--raised); border-radius: var(--radius); padding: clamp(1.4rem, 3vw, 2.4rem); border-top: 6px solid var(--dim, var(--leaf)); min-height: 24rem; transition: border-color 0.25s; }
+/* every dimension sits in the same grid cell, so the panel is always as tall as the tallest one and the page never changes height when you switch */
+.dim-panel { display: grid; }
+.dim-panel .dim-content { grid-area: 1 / 1; }
+.dim-panel .dim-content[hidden] { display: block; visibility: hidden; }
 .dim-panel h3 { margin-bottom: 0.3em; }
 .dim-panel .sum { margin: 0 0 1.6rem; color: var(--ink-2); }
 .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.2rem; }
 .steps li { display: grid; grid-template-columns: 2.4rem 1fr; gap: 0.9rem; align-items: start; padding: 0.85rem 0 0.85rem 0; border-bottom: 1px solid var(--line); max-width: none; }
-.steps li:nth-child(2) { margin-left: clamp(0.5rem, 2vw, 1.4rem); }
-.steps li:nth-child(3) { margin-left: clamp(1rem, 4vw, 2.8rem); }
 .steps li:last-child { border-bottom: 0; }
 .steps .n { display: grid; place-items: center; width: 2.1rem; height: 2.1rem; border-radius: 999px; background: var(--dim-fill, var(--leaf)); color: var(--on-dim, #fff); font: 700 1rem var(--sans); }
 .steps .t { font-weight: 700; display: block; font-size: 0.98rem; }
@@ -245,8 +250,7 @@ h4 { font-size: 1.25rem; line-height: 1.2; font-weight: 450; }
 
 /* ---------- testimonial carousel ---------- */
 .quotes-wrap { position: relative; }
-.quotes { transition: height 0.3s ease; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; gap: 0; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
-.quotes::-webkit-scrollbar { display: none; }
+.quotes { transition: height 0.3s ease; display: flex; overflow: hidden; touch-action: pan-y; gap: 0; }
 .quote { flex: 0 0 100%; align-self: flex-start; scroll-snap-align: start; padding-right: clamp(0rem, 4vw, 4rem); }
 .quote blockquote { margin: 0; }
 .quote p.q { font-family: var(--serif); font-size: clamp(1.7rem, 1rem + 3vw, 3.3rem); line-height: 1.14; letter-spacing: -0.015em; font-weight: 380; max-width: 24ch; text-wrap: balance; margin: 0 0 1.4rem; }
@@ -340,7 +344,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px
 .status.ok { color: var(--action); }
 .status.err { color: light-dark(#9b2c1f, #ffb4a3); }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-dialog.vol { border: 0; border-radius: var(--radius); padding: 0; background: var(--raised); color: var(--ink); width: min(34rem, calc(100% - 2rem)); box-shadow: 0 30px 80px rgb(0 0 0 / 0.35); }
+dialog.vol { max-height: calc(100dvh - 2rem); overflow-y: auto; overscroll-behavior: contain; border: 0; border-radius: var(--radius); padding: 0; background: var(--raised); color: var(--ink); width: min(34rem, calc(100% - 2rem)); box-shadow: 0 30px 80px rgb(0 0 0 / 0.35); }
 dialog.vol::backdrop { background: rgb(10 20 14 / 0.55); }
 dialog.vol .inner { padding: clamp(1.3rem, 3vw, 2rem); }
 dialog.vol .close { position: absolute; top: 0.7rem; right: 0.7rem; }
@@ -357,6 +361,10 @@ dialog.vol .close { position: absolute; top: 0.7rem; right: 0.7rem; }
 .footer-grid ul { list-style: none; padding: 0; margin: 0; }
 .footer-grid li { padding: 0.18rem 0; }
 .footer-grid a { color: var(--ink); }
+.social { display: flex; gap: 0.6rem; margin-top: 1.2rem; }
+.social a { display: inline-grid; place-items: center; width: 2.7rem; height: 2.7rem; border-radius: 999px; border: 1.5px solid var(--line); color: var(--ink); transition: background 0.2s, color 0.2s, border-color 0.2s; }
+.social a:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.social svg { width: 1.3rem; height: 1.3rem; }
 .footer-lockup { width: min(15rem, 80%); aspect-ratio: 990 / 675; height: auto; display: block; margin-bottom: 1rem; }
 .fine { border-top: 1px solid var(--line); padding-block: 1.4rem 2.2rem; font-size: 0.95rem; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 0.4rem 2rem; justify-content: space-between; }
 .fine p { max-width: none; margin: 0; }
@@ -402,7 +410,7 @@ dialog.vol .close { position: absolute; top: 0.7rem; right: 0.7rem; }
 .modes li:last-child { border-bottom: 1px solid var(--line); }
 .modes h3 { font-size: 1.35rem; margin: 0; }
 .modes p { margin: 0; color: var(--ink-2); max-width: 62ch; }
-.longhaul { font-family: var(--serif); font-size: clamp(2rem, 1rem + 3.4vw, 3.8rem); line-height: 1.08; max-width: 18ch; margin: 1rem 0 0; }
+.longhaul { font-family: var(--serif); font-size: clamp(2rem, 1rem + 3.4vw, 3.8rem); line-height: 1.12; max-width: 18ch; margin: clamp(2.2rem, 5vw, 3.6rem) 0 0; }
 .cards { display: grid; gap: clamp(1.6rem, 4vw, 3rem); }
 @media (min-width: 62rem) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .card { border-top: 1px solid var(--line); padding-top: 1.2rem; }

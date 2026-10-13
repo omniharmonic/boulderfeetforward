@@ -35,7 +35,7 @@ Every quote is marked **Waiting on written OK to publish**. Before launch, get a
 ## Small things worth a look
 
 - **Newsletter** says "a few times a year." Change it to your real plan (it appears in the footer, on the home page and on the newsletter page).
-- **"Come as you are. No sign-up, no questions."** is on the home page and Contact page. It reflects the zero-barrier approach. Confirm you are happy to say it that way.
+- **"All are welcome."** replaced the earlier "Come as you are. No sign-up, no questions." on the home page, Contact page and the weekly outreach page.
 - **Wish list wording** says anything ordered ships directly to you. That is from the old site.
 - **Giving amounts** ("$19 buys food for about 10 meals," "$27 stocks about 100 care items," "$5 pays for one wash-and-dry load," "$14 buys a ten-ride pass") are worked out from packet figures and marked approximate. Confirm them, or change them in **Ways to fund something specific**.
 - **External links** were copied from the old site. They have not been re-checked since.

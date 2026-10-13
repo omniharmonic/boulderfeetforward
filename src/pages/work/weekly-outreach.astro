@@ -10,7 +10,7 @@ const rendered = await Promise.all(events.map(async (e) => ({ e, Content: (await
 ---
 <Base title="Weekly outreach" description="Tuesdays in the Park and Friday Breakfast Club, every week in Central Park, Boulder.">
   <Stage>
-    <PageHead title="Come as you are." lead="Meals, supplies and people who can help, in one place, twice a week. No sign-up, no questions." />
+    <PageHead title="All are welcome." lead="Meals, supplies and people who can help, in one place, twice a week." />
     {rendered.map(({ e, Content }) => (
       <section class="section tight" data-step id={e.id} aria-labelledby={`h-${e.id}`}>
         <div class="wrap">
