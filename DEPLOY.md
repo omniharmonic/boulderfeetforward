@@ -111,6 +111,8 @@ Zeffy lets you create a form for each program. If you add one, paste its link in
 
 ## Launching publicly
 
+Done: the site launched publicly at boulderfeetforward.org with steps 1 to 4 below already applied. They are kept here as a record.
+
 Do these in order when BFF is ready, and after everything in `docs/TO-CONFIRM.md` is settled.
 
 1. **Remove the password.** Open `.github/workflows/deploy.yml` and delete the step named "Password-protect the site" (the lines between the two `DELETE THIS` comments). Commit.
@@ -136,7 +138,7 @@ Do these in order when BFF is ready, and after everything in `docs/TO-CONFIRM.md
      Delete any other A, AAAA or CNAME records on `@` and `www` (for example ones left by Google Sites or the registrar's parking page). Leave MX and TXT records alone.
    - The file `public/CNAME` already holds `boulderfeetforward.org`. If the domain ever changes, change it there too.
    - Optional but recommended: verify the domain under your GitHub account or organization settings (**Pages**, **Add a domain**) so no one else can claim it. GitHub gives you one TXT record to add.
-   - The workflow reads the domain from GitHub Pages, so the site's links adjust on their own.
+   - The workflow builds the site for `https://boulderfeetforward.org` (`SITE_URL` in `.github/workflows/deploy.yml`). If the domain changes, change it there too.
    - Keep the email addresses working. Changing where the website lives does not affect email, but be careful not to remove existing mail (MX) records.
 6. The old Google Sites addresses (`/our-work/…`, `/about-us/…`, `/get-involved/…`) redirect to the new pages automatically.
 7. After the domain is live, remember to turn the old Google Site off or point it to the new address.
