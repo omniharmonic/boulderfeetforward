@@ -8,7 +8,7 @@ For Boulder Feet Forward staff. You do not need to know how to code. Anything yo
 
 ## Open the editor
 
-1. Go to your site address and add `/admin/` to the end. For example `https://feetforwardboulder.org/admin/`.
+1. Go to your site address and add `/admin/` to the end. For example `https://boulderfeetforward.org/admin/`.
 2. Click **Sign in with token**.
 3. The first time, you need a **token**. It is a long password that lets the editor save changes for you.
 

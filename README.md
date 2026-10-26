@@ -1,6 +1,6 @@
 # Boulder Feet Forward website
 
-The website for [Boulder Feet Forward](https://www.feetforwardboulder.org/), a peer-led street outreach team in Boulder, Colorado.
+The website for [Boulder Feet Forward](https://boulderfeetforward.org/), a peer-led street outreach team in Boulder, Colorado.
 
 **Designed and built as a gift by Benjamin Life ([@omniharmonic](https://x.com/omniharmonic)).** It is not a project of any other organization. Boulder Feet Forward owns it and can change it, move it, or hand it to anyone, with no help from the person who built it.
 

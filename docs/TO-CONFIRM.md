@@ -40,4 +40,4 @@ Every quote is marked **Waiting on written OK to publish**. Before launch, get a
 - **Giving amounts** ("$19 buys food for about 10 meals," "$27 stocks about 100 care items," "$5 pays for one wash-and-dry load," "$14 buys a ten-ride pass") are worked out from packet figures and marked approximate. Confirm them, or change them in **Ways to fund something specific**.
 - **External links** were copied from the old site. They have not been re-checked since.
 - **Photography:** the site uses line art and no photos of neighbors. If you add photos, get consent and add a way to show them.
-- **Domain and email:** the site is meant to live at feetforwardboulder.org. See DEPLOY.md for what changes at the domain.
+- **Domain and email:** the site is meant to live at boulderfeetforward.org. See DEPLOY.md for what changes at the domain.

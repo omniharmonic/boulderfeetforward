@@ -8,7 +8,7 @@ Written for whoever at Boulder Feet Forward (or helping BFF) sets this up. You d
 
 ## The plan in one paragraph
 
-The site's files live in a **private** GitHub repository that BFF owns. Every time something changes, GitHub builds the site and publishes it with GitHub Pages. While the site is being finished, every page is **password-protected**. When BFF is ready, you delete one step and it becomes public at feetforwardboulder.org.
+The site's files live in a **private** GitHub repository that BFF owns. Every time something changes, GitHub builds the site and publishes it with GitHub Pages. While the site is being finished, every page is **password-protected**. When BFF is ready, you delete one step and it becomes public at boulderfeetforward.org.
 
 ## What "private and password-protected" really means
 
@@ -118,8 +118,24 @@ Do these in order when BFF is ready, and after everything in `docs/TO-CONFIRM.md
 3. **Hide editor notes.** Change `PUBLIC_SHOW_DRAFTS` to `"false"`.
 4. **Hide quotes you do not have permission for.** Change `PUBLIC_REQUIRE_CONSENT` to `"true"`, or switch off "Waiting on written OK" on each quote you have approval for.
 5. **Use your own domain.**
-   - In **Settings**, **Pages**, enter `feetforwardboulder.org` as the custom domain, and tick **Enforce HTTPS** once it is available.
-   - At the place where the domain is registered, add the DNS records GitHub shows (see <https://docs.github.com/pages/configuring-a-custom-domain-for-your-github-pages-site>).
+   - In **Settings**, **Pages**, enter `boulderfeetforward.org` as the custom domain, and tick **Enforce HTTPS** once it is available.
+   - At the place where the domain is registered, add these DNS records (GitHub's guide: <https://docs.github.com/pages/configuring-a-custom-domain-for-your-github-pages-site>):
+
+     | Type | Name / host | Value |
+     |---|---|---|
+     | A | `@` | `185.199.108.153` |
+     | A | `@` | `185.199.109.153` |
+     | A | `@` | `185.199.110.153` |
+     | A | `@` | `185.199.111.153` |
+     | AAAA | `@` | `2606:50c0:8000::153` |
+     | AAAA | `@` | `2606:50c0:8001::153` |
+     | AAAA | `@` | `2606:50c0:8002::153` |
+     | AAAA | `@` | `2606:50c0:8003::153` |
+     | CNAME | `www` | `ACCOUNT.github.io` (the account that owns the repository, no repository name) |
+
+     Delete any other A, AAAA or CNAME records on `@` and `www` (for example ones left by Google Sites or the registrar's parking page). Leave MX and TXT records alone.
+   - The file `public/CNAME` already holds `boulderfeetforward.org`. If the domain ever changes, change it there too.
+   - Optional but recommended: verify the domain under your GitHub account or organization settings (**Pages**, **Add a domain**) so no one else can claim it. GitHub gives you one TXT record to add.
    - The workflow reads the domain from GitHub Pages, so the site's links adjust on their own.
    - Keep the email addresses working. Changing where the website lives does not affect email, but be careful not to remove existing mail (MX) records.
 6. The old Google Sites addresses (`/our-work/…`, `/about-us/…`, `/get-involved/…`) redirect to the new pages automatically.
