@@ -87,6 +87,8 @@ The Sheet is yours. Add columns, filters or a pivot table for hours however you 
 
 ## Part 8. Newsletter (free)
 
+**For now:** sign-ups go to a private Google Sheet, "BFF newsletter sign-ups", through `integrations/newsletter-apps-script.gs` (set-up steps at the top of that file, the same as the volunteer one). When BFF picks an email service, import the Sheet's emails into it and switch the three settings below.
+
 The site's signup form is ready to connect to **EmailOctopus**. At the time of writing its free plan includes up to 2,500 subscribers and 10,000 emails a month, one signup form, and a small EmailOctopus mark in emails. Check their pricing page for current limits, and whether the free plan includes a welcome-email automation.
 
 1. Create an EmailOctopus account and a **list** named "BFF newsletter".

@@ -67,7 +67,8 @@ document.querySelectorAll<HTMLFormElement>('[data-newsletter]').forEach((form) =
     try {
       await fetch(action, { method: 'POST', mode: 'no-cors', body });
       form.reset();
-      say('You are on the list. Check your email to confirm.', true);
+      // A Google Sheet sends no confirmation email; a real email service usually does.
+      say(action.includes('script.google.com') ? 'You are on the list. Thank you.' : 'You are on the list. Check your email to confirm.', true);
     } catch {
       say('That did not go through. Try again, or email us and we will add you.', false);
     }

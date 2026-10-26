@@ -2,8 +2,8 @@
  * Volunteer sign-ups -> a private Google Sheet.
  * Boulder Feet Forward. Designed and built by Benjamin Life (@omniharmonic) as a gift.
  *
- * SET-UP (about 5 minutes, done once, signed in as the BFF Google account):
- *   1. Create a new Google Sheet named "BFF volunteer sign-ups". Keep it private.
+ * SET-UP (about 3 minutes, done once):
+ *   1. Open the Google Sheet "BFF volunteer sign-ups" (or create one). Keep it private.
  *   2. In the Sheet: Extensions, Apps Script. Delete what is there and paste this whole file. Save.
  *   3. Deploy, New deployment, type "Web app".
  *        Execute as: Me
@@ -17,7 +17,6 @@
  * reads from it, so you can reorganize the Sheet however you like.
  */
 const NOTIFY_EMAIL = '';   // for example 'libby@feetforwardboulder.org'. Leave '' for no emails.
-const SHEET_NAME = 'Sign-ups';
 const HEADERS = ['Timestamp', 'Name', 'Contact', 'Shift', 'Date', 'People', 'Notes', 'Status', 'Hours confirmed'];
 
 function doPost(e) {
@@ -26,12 +25,9 @@ function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents || '{}');
     const ss = SpreadsheetApp.getActiveSpreadsheet();
-    let sheet = ss.getSheetByName(SHEET_NAME);
-    if (!sheet) {
-      sheet = ss.insertSheet(SHEET_NAME);
-      sheet.appendRow(HEADERS);
-      sheet.setFrozenRows(1);
-    }
+    const sheet = ss.getSheets()[0];  // the first tab, whatever it is called
+    if (sheet.getLastRow() === 0) sheet.appendRow(HEADERS);
+    sheet.setFrozenRows(1);
     const clean = (v, max) => String(v == null ? '' : v).replace(/^[=+\-@]/, "'$&").slice(0, max || 300);  // stops spreadsheet-formula injection
     if (!clean(data.name) || !clean(data.contact)) {
       return ContentService.createTextOutput('missing').setMimeType(ContentService.MimeType.TEXT);
