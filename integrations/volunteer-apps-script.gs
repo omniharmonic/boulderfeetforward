@@ -11,12 +11,15 @@
  *      (The address it gives you only accepts new rows. It cannot read the Sheet.)
  *   4. Copy the web app URL. In the site editor, open "Site settings and numbers", then
  *      "Contact, links and sign-ups", and paste it into "Volunteer sign-up address". Save.
- *   5. Optional: set NOTIFY_EMAIL below to get an email for each new sign-up.
+ *   5. NOTIFY_EMAIL below gets an email for each new sign-up. The first time, pick "authorize" in the
+ *      function menu at the top and press Run, so Google asks once for permission to send email.
+ *      After changing this file: Deploy, Manage deployments, edit (pencil), Version: New version, Deploy.
+ *      That keeps the same web address.
  *
  * To check hours later, use the "Status" and "Hours" columns in the Sheet. Nothing on the website
  * reads from it, so you can reorganize the Sheet however you like.
  */
-const NOTIFY_EMAIL = '';   // for example 'libby@feetforwardboulder.org'. Leave '' for no emails.
+const NOTIFY_EMAIL = 'libby@feetforwardboulder.org';   // who hears about each sign-up. Separate several with commas. '' for none.
 // Only needed if this script is NOT opened from the Sheet (Extensions, Apps Script): paste the Sheet's ID,
 // the long code in its address between /d/ and /edit.
 const SHEET_ID = '';
@@ -47,9 +50,16 @@ function doPost(e) {
       '',
     ]);
     if (NOTIFY_EMAIL) {
-      MailApp.sendEmail(NOTIFY_EMAIL, 'New volunteer sign-up: ' + clean(data.name, 80),
-        'Name: ' + clean(data.name) + '\nContact: ' + clean(data.contact) + '\nShift: ' + clean(data.shift) +
-        '\nDate: ' + clean(data.date) + '\nPeople: ' + clean(data.people) + '\nNotes: ' + clean(data.notes));
+      const contact = String(data.contact || '').trim();
+      const options = { name: 'BFF website' };
+      if (/^\S+@\S+\.\S+$/.test(contact)) options.replyTo = contact;  // reply goes straight to the volunteer
+      try {
+        MailApp.sendEmail(NOTIFY_EMAIL, 'New volunteer sign-up: ' + clean(data.name, 80),
+          'Someone signed up to volunteer on the website.\n\n' +
+          'Name: ' + clean(data.name) + '\nContact: ' + clean(data.contact) + '\nShift: ' + clean(data.shift) +
+          '\nDate: ' + (clean(data.date) || 'any') + '\nPeople: ' + clean(data.people) + '\nNotes: ' + clean(data.notes) +
+          '\n\nAll sign-ups: ' + ss.getUrl(), options);
+      } catch (err) { console.error(err); }  // the row is already saved; a mail hiccup must not lose it
     }
     return ContentService.createTextOutput('ok').setMimeType(ContentService.MimeType.TEXT);
   } finally {
@@ -59,4 +69,9 @@ function doPost(e) {
 
 function doGet() {
   return ContentService.createTextOutput('This address accepts volunteer sign-ups from the BFF website.');
+}
+
+// Run this once from the editor so Google asks for permission to send the notification emails.
+function authorize() {
+  MailApp.getRemainingDailyQuota();
 }

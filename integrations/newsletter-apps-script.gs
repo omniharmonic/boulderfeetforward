@@ -15,8 +15,12 @@
  *   4. Copy the web app URL. In the site editor, open "Site settings and numbers", then
  *      "Contact, links and sign-ups", and paste it into "Newsletter form address".
  *      Set "Newsletter email field name" to  email_address  and leave the spam-trap field empty. Save.
+ *   5. NOTIFY_EMAIL below gets an email for each new sign-up. The first time, pick "authorize" in the
+ *      function menu at the top and press Run, so Google asks once for permission to send email.
+ *      After changing this file: Deploy, Manage deployments, edit (pencil), Version: New version, Deploy.
+ *      That keeps the same web address.
  */
-const NOTIFY_EMAIL = '';   // for example 'libby@feetforwardboulder.org'. Leave '' for no emails.
+const NOTIFY_EMAIL = 'libby@feetforwardboulder.org';   // who hears about each sign-up. Separate several with commas. '' for none.
 // Only needed if this script is NOT opened from the Sheet (Extensions, Apps Script): paste the Sheet's ID,
 // the long code in its address between /d/ and /edit.
 const SHEET_ID = '';
@@ -31,7 +35,8 @@ function doPost(e) {
     if (!/^\S+@\S+\.\S+$/.test(email) || /^[=+\-@]/.test(email)) {
       return ContentService.createTextOutput('invalid').setMimeType(ContentService.MimeType.TEXT);
     }
-    const sheet = (SHEET_ID ? SpreadsheetApp.openById(SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet()).getSheets()[0];  // the first tab
+    const ss = (SHEET_ID ? SpreadsheetApp.openById(SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet());
+    const sheet = ss.getSheets()[0];  // the first tab
     if (sheet.getLastRow() === 0) sheet.appendRow(HEADERS);
     sheet.setFrozenRows(1);
     // Skip someone who is already on the list.
@@ -41,9 +46,20 @@ function doPost(e) {
       if (existing.indexOf(email) !== -1) return ContentService.createTextOutput('ok').setMimeType(ContentService.MimeType.TEXT);
     }
     sheet.appendRow([new Date(), email, 'New']);
-    if (NOTIFY_EMAIL) MailApp.sendEmail(NOTIFY_EMAIL, 'New newsletter sign-up', email);
+    if (NOTIFY_EMAIL) {
+      try {
+        MailApp.sendEmail(NOTIFY_EMAIL, 'New newsletter sign-up: ' + email,
+          email + ' joined the newsletter on the website.\n\nAll sign-ups: ' + ss.getUrl(),
+          { name: 'BFF website', replyTo: email });
+      } catch (err) { console.error(err); }  // the row is already saved; a mail hiccup must not lose it
+    }
     return ContentService.createTextOutput('ok').setMimeType(ContentService.MimeType.TEXT);
   } finally {
     lock.releaseLock();
   }
+}
+
+// Run this once from the editor so Google asks for permission to send the notification emails.
+function authorize() {
+  MailApp.getRemainingDailyQuota();
 }
