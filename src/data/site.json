@@ -7,16 +7,28 @@
     "phone": "720-520-2097",
     "phoneHref": "+17205202097",
     "email": "libby@feetforwardboulder.org",
-    "addressLines": ["PO Box 241", "Boulder, CO 80306"]
+    "addressLines": [
+      "PO Box 241",
+      "Boulder, CO 80306"
+    ]
   },
   "findUs": {
     "place": "Central Park, Boulder",
     "note": "All are welcome."
   },
   "social": [
-    { "label": "Facebook", "url": "https://www.facebook.com/profile.php?id=61558925265378" },
-    { "label": "Instagram", "url": "https://www.instagram.com/boulderfeetforward/" },
-    { "label": "X", "url": "https://x.com/BoCoFeetForward" }
+    {
+      "label": "Facebook",
+      "url": "https://www.facebook.com/profile.php?id=61558925265378"
+    },
+    {
+      "label": "Instagram",
+      "url": "https://www.instagram.com/boulderfeetforward/"
+    },
+    {
+      "label": "X",
+      "url": "https://x.com/BoCoFeetForward"
+    }
   ],
   "giving": {
     "general": "https://www.zeffy.com/en-US/donation-form/support-our-work-48",
@@ -24,8 +36,8 @@
     "sponsorMeals": "https://www.zeffy.com/en-US/donation-form/sponsor-community-meals"
   },
   "integrations": {
-    "volunteerEndpoint": "",
-    "newsletterAction": "",
+    "volunteerEndpoint": "https://script.google.com/macros/s/AKfycbwt4qdOz_chkyw5ITCJ-geP3EfiHmzE5-CTdrtefD7lkvpjbzKvgYCXQTINZhFmHAn3nw/exec",
+    "newsletterAction": "https://script.google.com/macros/s/AKfycbwm1bCe5Ocsduu6OZcArVUqXnWwh44vbNFnkR6CaththvYjMWdhD2JYi9iQSJIkuap9WQ/exec",
     "newsletterEmailField": "email_address",
     "newsletterHoneypotField": ""
   },
