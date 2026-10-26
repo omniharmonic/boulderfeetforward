@@ -17,6 +17,9 @@
  * reads from it, so you can reorganize the Sheet however you like.
  */
 const NOTIFY_EMAIL = '';   // for example 'libby@feetforwardboulder.org'. Leave '' for no emails.
+// Only needed if this script is NOT opened from the Sheet (Extensions, Apps Script): paste the Sheet's ID,
+// the long code in its address between /d/ and /edit.
+const SHEET_ID = '';
 const HEADERS = ['Timestamp', 'Name', 'Contact', 'Shift', 'Date', 'People', 'Notes', 'Status', 'Hours confirmed'];
 
 function doPost(e) {
@@ -24,7 +27,7 @@ function doPost(e) {
   lock.waitLock(10000);
   try {
     const data = JSON.parse(e.postData.contents || '{}');
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const ss = (SHEET_ID ? SpreadsheetApp.openById(SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet());
     const sheet = ss.getSheets()[0];  // the first tab, whatever it is called
     if (sheet.getLastRow() === 0) sheet.appendRow(HEADERS);
     sheet.setFrozenRows(1);

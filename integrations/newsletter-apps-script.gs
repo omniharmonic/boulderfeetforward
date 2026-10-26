@@ -17,6 +17,9 @@
  *      Set "Newsletter email field name" to  email_address  and leave the spam-trap field empty. Save.
  */
 const NOTIFY_EMAIL = '';   // for example 'libby@feetforwardboulder.org'. Leave '' for no emails.
+// Only needed if this script is NOT opened from the Sheet (Extensions, Apps Script): paste the Sheet's ID,
+// the long code in its address between /d/ and /edit.
+const SHEET_ID = '';
 const HEADERS = ['Timestamp', 'Email', 'Status'];
 
 function doPost(e) {
@@ -28,7 +31,7 @@ function doPost(e) {
     if (!/^\S+@\S+\.\S+$/.test(email) || /^[=+\-@]/.test(email)) {
       return ContentService.createTextOutput('invalid').setMimeType(ContentService.MimeType.TEXT);
     }
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];  // the first tab
+    const sheet = (SHEET_ID ? SpreadsheetApp.openById(SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet()).getSheets()[0];  // the first tab
     if (sheet.getLastRow() === 0) sheet.appendRow(HEADERS);
     sheet.setFrozenRows(1);
     // Skip someone who is already on the list.
